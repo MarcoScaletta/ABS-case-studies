@@ -1,0 +1,8 @@
+delta DeltaOverdraft when Overdraft{
+	class Account {
+
+		remove [Final] Int OVERDRAFT_LIMIT;
+		adds   [Final] Int OVERDRAFT_LIMIT = -5000; //??
+
+	}
+}

@@ -1,0 +1,34 @@
+delta DeltaInterest when Interest {
+	modifies class Account {
+
+		adds Int INTEREST_RATE = 2;
+
+		adds Int interest = 0;
+
+		[Ensures((balance >= 0 ==> \result >= 0) && 
+				 (balance <= 0 ==> \result <= 0))]
+		[static] adds Int calculateInterest() {
+			return balance * INTEREST_RATE / 36500;
+		}
+
+	}
+
+	modifies class Application {
+	
+		[Ensures ((account.balance >= 0 ==> account.interest >= \old(account.interest)) && 
+				  (account.balance <= 0 ==> account.interest <= \old(account.interest)))]
+		[changes behavior] modifies void nextDay() {
+			original();
+			account.interest += account.calculateInterest(); 
+		}
+	
+		 [Ensures (account.balance == \old(account.balance) + \old(account.interest) && 
+		 		   account.interest == 0)]
+		 [changes behavior] modifies void nextYear() {
+			original();
+			account.balance += account.interest;
+			account.interest = 0;
+		}
+	
+	}
+}

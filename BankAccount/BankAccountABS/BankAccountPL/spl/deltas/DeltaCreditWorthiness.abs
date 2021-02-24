@@ -1,0 +1,15 @@
+delta DeltaCreditWorthiness {
+
+	modifies interface AccountI{
+	   adds boolean credit(int amount);
+	}
+
+	modifies class Account{
+		[Requires(amount >= 0)]
+		[Ensures(balance >= amount <==> \result)]
+		adds boolean credit(int amount) {
+			return balance >= amount;
+		}
+	 }
+
+}

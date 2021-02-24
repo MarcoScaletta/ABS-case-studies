@@ -1,0 +1,25 @@
+
+interface AccountI{
+	 Boolean update(Int x);
+}
+
+[Ensures(this.balance == 0)]
+class Account {
+
+	[Final] Int OVERDRAFT_LIMIT = 0;
+
+	//@ invariant balance >= OVERDRAFT_LIMIT; ??
+	Int balance = 0;
+	
+
+	[Spec : Ensures((!\result ==> balance == \old(balance)) && 
+					( \result ==> balance == \old(balance) + x))]
+	[non-static] Boolean update(Int x) {
+		Int newBalance = balance + x;
+		if (newBalance < OVERDRAFT_LIMIT)
+			return false;
+		balance = newBalance;
+		return true;
+	}
+
+}

@@ -1,0 +1,10 @@
+productline BankAccountPL {
+    features Overdraft, Interest, InterestEstimation, CreditWorthiness, DailyLimit;
+
+    delta DeltaOverdraft when Overdraft;
+    delta DeltaInterest when Interest;
+    delta DeltaInterestEstimation after DeltaInterest when InterestEstimation;
+    delta DeltaCreditWorthiness when CreditWorthiness;
+    delta DeltaDailyLimit when DailyLimit;
+
+}

@@ -1,0 +1,36 @@
+delta DeltaDailyLimit when DailyLimit{
+
+	modifies class Account {
+
+		adds Int DAILY_LIMIT = -1000;
+		
+		//@ invariant withdraw >= DAILY_LIMIT; ??
+		adds Int withdraw = 0;
+
+		[Ensures((!\result ==> withdraw == \old(withdraw)) && 
+				 ( \result ==> withdraw <= \old(withdraw)))]
+		[changes behavior] modifies Boolean update(Int x) {
+			Int newWithdraw = withdraw;
+			if (x < 0)  {
+				newWithdraw += x;
+				if (newWithdraw < DAILY_LIMIT) 
+					return false;
+			}
+			if (!original(x))
+				return false;
+			withdraw = newWithdraw;
+			return true;
+		}
+			
+	}
+
+	modifies class Application {
+		
+		 [Ensures(account.withdraw == 0)]
+		 [changes behavior] modifies void nextDay() {
+			original();
+			account.withdraw = 0;
+		}
+	
+	}
+}
