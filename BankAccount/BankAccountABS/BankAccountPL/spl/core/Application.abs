@@ -1,12 +1,9 @@
 class Application {
 	
-	//@ invariant account != null; ??
+	//@ invariant account != null;
 	AccountI account = new Account();
 
 	[non-static] void nextDay() {
-	}
-
-	[non-static] void nextYear() {
 	}
 	
 }

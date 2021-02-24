@@ -4,9 +4,8 @@ class Account {
 	
 	//@ invariant withdraw >= DAILY_LIMIT;
 	int withdraw = 0;
-	
-	boolean test = false;
 
+	// PROVED
 	/*@
 	 @ ensures (\result ==> withdraw <= \old(withdraw)) && (!\result ==> withdraw == \old(withdraw));
 	 @*/

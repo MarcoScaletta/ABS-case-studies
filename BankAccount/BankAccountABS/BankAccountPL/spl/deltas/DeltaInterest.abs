@@ -22,10 +22,10 @@ delta DeltaInterest when Interest {
 			account.interest += account.calculateInterest(); 
 		}
 	
+		// remodeled
 		 [Ensures (account.balance == \old(account.balance) + \old(account.interest) && 
 		 		   account.interest == 0)]
-		 [changes behavior] modifies void nextYear() {
-			original();
+		[static] adds void nextYear() {
 			account.balance += account.interest;
 			account.interest = 0;
 		}

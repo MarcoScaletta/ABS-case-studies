@@ -1,10 +1,9 @@
 class Application {
 	
-	int withdraw = 0;
-	
-	Account account;
+	Account account; //added to access the field
 
-	/*@
+  //PROVED
+	/*
 	 @ ensures account.withdraw == 0;
 	 @*/
 	void nextDay() {
@@ -16,7 +15,7 @@ class Application {
           @ break_behavior requires false;
           @ continue_behavior requires false;
           @ return_behavior requires false;
-          @ normal_behavior ensures true;
+          @ normal_behavior ensures account != null; // invariant
           @*/
         \abstract_statement Original;
 		account.withdraw = 0;
