@@ -1,8 +1,8 @@
 delta DeltaInterestEstimation when InterestEstimation	{	
 	class Account {
 
-		[Requires (daysLeft >= 0)]
-		[Ensures (calculateInterest() >= 0 ==> \result >= interest)]
+		//@requires daysLeft >= 0
+		//@ensures calculateInterest() >= 0 ==> \result >= interest
 		adds Int estimatedInterest(Int daysLeft) {
 			return interest + daysLeft * calculateInterest();
 		}

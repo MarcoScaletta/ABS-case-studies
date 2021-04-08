@@ -4,19 +4,16 @@ interface AccountI{
 	 Int getBalance();
 }
 
-//[Ensures(this.balance == 0)]
-[Invariant (balance >= OVERDRAFT_LIMIT)]
 class Account {
-
+	//@ invariant balance >= OVERDRAFT_LIMIT;
 	[Final] Int OVERDRAFT_LIMIT = 0;
 
 	
 	Int balance = 0;
 	
 
-	[Spec : Ensures((!\result ==> balance == \old(balance)) && 
-					( \result ==> balance == \old(balance) + x))]
-	[non-static] Boolean update(Int x) {
+	//@ensures (!\result ==> balance == \old(balance)) && (\result ==> balance == \old(balance) + x);
+	Boolean update(Int x) { //non BP-method
 		Int newBalance = balance + x;
 		if (newBalance < OVERDRAFT_LIMIT)
 			return false;

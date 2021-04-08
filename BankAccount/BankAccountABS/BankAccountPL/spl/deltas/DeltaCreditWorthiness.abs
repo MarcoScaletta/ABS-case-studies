@@ -5,8 +5,8 @@ delta DeltaCreditWorthiness {
 	}
 
 	modifies class Account{
-		[Requires(amount >= 0)]
-		[Ensures(balance >= amount <==> \result)]
+		//@requires amount >= 0;
+		//@ensures balance >= amount <==> \result;
 		adds boolean credit(int amount) {
 			return balance >= amount;
 		}

@@ -1,11 +1,10 @@
 delta DeltaInterest when Interest {
 
 	modifies interface AccountI{
-	   adds Int getInterest();
-		[Ensures((getBalance() >= 0 ==> \result >= 0) && 
-				 (getBalance() <= 0 ==> \result <= 0))]
-	   adds Int calculateInterest();
-	   adds Int setInterest(Int newInterest);
+	    adds Int getInterest();
+		//@ensures (getBalance() >= 0 ==> \result >= 0) && (getBalance() <= 0 ==> \result <= 0)
+	    adds Int calculateInterest();
+	    adds Int setInterest(Int newInterest);
 
 	}
 
@@ -14,19 +13,17 @@ delta DeltaInterest when Interest {
 		adds Int INTEREST_RATE = 2;
 		adds Int interest = 0;
 
-		[static] adds Int calculateInterest() {
+		adds Int calculateInterest() { //BP-method
 			return balance * INTEREST_RATE / 36500;
 		}
 
-		[Assignable \nothing]
-		[Ensures (\result == this.interest)]
-		[static] adds Int getInterest(){
+		//@ensures \result == this.interest
+		adds Int getInterest(){ //BP-method
 			return this.interest; 
 		}
 
-		// [Assignable this.interest]
-		[Ensures (this.interest == newInterest)]
-		[static] adds Int setInterest(Int newInterest){
+		//@ensures this.interest == newInterest
+		adds Int setInterest(Int newInterest){ //BP-method
 				this.interest = newInterest;
 		}
 
@@ -34,19 +31,17 @@ delta DeltaInterest when Interest {
 
 	modifies class Application {
 	
-		// [Assignable Assignable@l, account.setInterest, account.calculateInterest, account.getInterest]
-		[Ensures ((account.getBalance() >= 0 ==> account.getInterest() >= \old(account.getInterest())) && 
-					(account.getBalance() <= 0 ==> account.getInterest() <= \old(account.getInterest())))]
-		[changes behavior] modifies void nextDay() {
-			l:original();
+		/*@ensures ((account.getBalance() >= 0 ==> account.getInterest() >= \old(account.getInterest())) && 
+		  @			(account.getBalance() <= 0 ==> account.getInterest() <= \old(account.getInterest())))]
+		  @*/
+		modifies void nextDay() { //COBP
+			original();
 			account.setInterest(account.calculateInterest() + account.getInterest());
 		}
 
 		// remodeled
-		
-		// [Assignable account.setInterest, this.balance]
-		[Ensures (account.getBalance() == \old(account..getBalance()) + \old(account.getInterest()) && account.getInterest() == 0)]
-		[static] adds void nextYear() {
+		//@ensures account.getBalance() == \old(account.getBalance()) + \old(account.getInterest()) && account.getInterest() == 0
+		adds void nextYear() { //BP-method
 			account.setBalance(account.getBalance() + account.getInterest());
 			account.setInterest(0);
 		}

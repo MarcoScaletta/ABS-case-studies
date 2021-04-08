@@ -1,9 +1,8 @@
 class Application {
 	
-	//@ invariant account != null;
 	AccountI account = new Account();
 
-	[non-static] void nextDay() {
+	void nextDay() { //non BP-method
 	}
 	
 }

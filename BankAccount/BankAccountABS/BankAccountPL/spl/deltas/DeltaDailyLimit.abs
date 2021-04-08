@@ -12,9 +12,8 @@ delta DeltaDailyLimit when DailyLimit{
 		adds Int DAILY_LIMIT = -1000;
 		adds Int withdraw = 0;
 
-		[Ensures((!\result ==> withdraw == \old(withdraw)) && 
-				 ( \result ==> withdraw <= \old(withdraw)))]
-		[changes behavior] modifies Boolean update(Int x) {
+		//@ensures (!\result ==> withdraw == \old(withdraw)) && ( \result ==> withdraw <= \old(withdraw));
+		modifies Boolean update(Int x) { //COBP
 		Int newWithdraw = withdraw;
 			if (x < 0)  {
 				newWithdraw += x;
@@ -28,10 +27,10 @@ delta DeltaDailyLimit when DailyLimit{
 		}
 
 		
-	   [static] adds Int getWithdraw(){
+		adds Int getWithdraw(){ //BP-method
 		    return this.withdraw; 
 	   }
-	   [static] adds Int setWithdraw(Int newWithdraw){
+		adds Int setWithdraw(Int newWithdraw){ //BP-method
 		    this.withdraw = newWithdraw;
 	   }
 			
@@ -39,8 +38,8 @@ delta DeltaDailyLimit when DailyLimit{
 
 	modifies class Application {
 		
-		 [Ensures(account.withdraw == 0)]
-		 [changes behavior] modifies void nextDay() {
+		 //@ensures account.withdraw == 0;
+		 modifies void nextDay() { //COBP
 			original();
 			account.withdraw = 0;
 		}
