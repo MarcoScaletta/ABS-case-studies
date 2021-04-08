@@ -1,34 +1,54 @@
 delta DeltaInterest when Interest {
+
+	modifies interface AccountI{
+	   adds Int getInterest();
+		[Ensures((getBalance() >= 0 ==> \result >= 0) && 
+				 (getBalance() <= 0 ==> \result <= 0))]
+	   adds Int calculateInterest();
+	   adds Int setInterest(Int newInterest);
+
+	}
+
 	modifies class Account {
 
 		adds Int INTEREST_RATE = 2;
-
 		adds Int interest = 0;
 
-		[Ensures((balance >= 0 ==> \result >= 0) && 
-				 (balance <= 0 ==> \result <= 0))]
 		[static] adds Int calculateInterest() {
 			return balance * INTEREST_RATE / 36500;
+		}
+
+		[Assignable \nothing]
+		[Ensures (\result == this.interest)]
+		[static] adds Int getInterest(){
+			return this.interest; 
+		}
+
+		// [Assignable this.interest]
+		[Ensures (this.interest == newInterest)]
+		[static] adds Int setInterest(Int newInterest){
+				this.interest = newInterest;
 		}
 
 	}
 
 	modifies class Application {
 	
-		[Ensures ((account.balance >= 0 ==> account.interest >= \old(account.interest)) && 
-				  (account.balance <= 0 ==> account.interest <= \old(account.interest)))]
+		// [Assignable Assignable@l, account.setInterest, account.calculateInterest, account.getInterest]
+		[Ensures ((account.getBalance() >= 0 ==> account.getInterest() >= \old(account.getInterest())) && 
+					(account.getBalance() <= 0 ==> account.getInterest() <= \old(account.getInterest())))]
 		[changes behavior] modifies void nextDay() {
-			original();
-			account.interest += account.calculateInterest(); 
+			l:original();
+			account.setInterest(account.calculateInterest() + account.getInterest());
 		}
-	
+
 		// remodeled
-		 [Ensures (account.balance == \old(account.balance) + \old(account.interest) && 
-		 		   account.interest == 0)]
+		
+		// [Assignable account.setInterest, this.balance]
+		[Ensures (account.getBalance() == \old(account..getBalance()) + \old(account.getInterest()) && account.getInterest() == 0)]
 		[static] adds void nextYear() {
-			account.balance += account.interest;
-			account.interest = 0;
+			account.setBalance(account.getBalance() + account.getInterest());
+			account.setInterest(0);
 		}
-	
 	}
 }

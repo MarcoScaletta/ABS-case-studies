@@ -1,14 +1,16 @@
 
 interface AccountI{
 	 Boolean update(Int x);
+	 Int getBalance();
 }
 
-[Ensures(this.balance == 0)]
+//[Ensures(this.balance == 0)]
+[Invariant (balance >= OVERDRAFT_LIMIT)]
 class Account {
 
 	[Final] Int OVERDRAFT_LIMIT = 0;
 
-	//@ invariant balance >= OVERDRAFT_LIMIT; ??
+	
 	Int balance = 0;
 	
 

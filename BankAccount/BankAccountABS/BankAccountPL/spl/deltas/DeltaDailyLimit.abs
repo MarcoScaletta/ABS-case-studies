@@ -1,16 +1,21 @@
 delta DeltaDailyLimit when DailyLimit{
 
-	modifies class Account {
+	modifies interface AccountI{
+	   adds Int getWithdraw();
+	   adds Int setWithdraw(Int newWithdraw);
+	}
+
+	modifies class Account{
+
+		adds invariant withdraw >= DAILY_LIMIT;
 
 		adds Int DAILY_LIMIT = -1000;
-		
-		//@ invariant withdraw >= DAILY_LIMIT; ??
 		adds Int withdraw = 0;
 
 		[Ensures((!\result ==> withdraw == \old(withdraw)) && 
 				 ( \result ==> withdraw <= \old(withdraw)))]
 		[changes behavior] modifies Boolean update(Int x) {
-			Int newWithdraw = withdraw;
+		Int newWithdraw = withdraw;
 			if (x < 0)  {
 				newWithdraw += x;
 				if (newWithdraw < DAILY_LIMIT) 
@@ -21,6 +26,14 @@ delta DeltaDailyLimit when DailyLimit{
 			withdraw = newWithdraw;
 			return true;
 		}
+
+		
+	   [static] adds Int getWithdraw(){
+		    return this.withdraw; 
+	   }
+	   [static] adds Int setWithdraw(Int newWithdraw){
+		    this.withdraw = newWithdraw;
+	   }
 			
 	}
 

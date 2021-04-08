@@ -1,10 +1,9 @@
 productline BankAccountPL {
     features Overdraft, Interest, InterestEstimation, CreditWorthiness, DailyLimit;
-
+    // core inv: balance >= OVERDRAFT_LIMIT; ??
     delta DeltaOverdraft when Overdraft;
     delta DeltaInterest when Interest;
     delta DeltaInterestEstimation after DeltaInterest when InterestEstimation;
     delta DeltaCreditWorthiness when CreditWorthiness;
-    delta DeltaDailyLimit when DailyLimit;
-
+    delta DeltaDailyLimit when DailyLimit; //inv: withdraw >= DAILY_LIMIT;
 }

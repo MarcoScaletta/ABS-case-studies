@@ -1,16 +1,68 @@
-class Account {
+
+interface AccountI{
+
+	//@accessible \inv: \dl_account_fields;
+	// @ accessible \inv: \nothing;
+	/*@
+	  @ ensures (getBalance() >= 0 ==> \result >= 0) 
+	  @   && (getBalance() <= 0 ==> \result <= 0);
+	  @*/
+	int /*@ pure @*/ calculateInterest();
+	
+	int /*@ pure @*/ getBalance();
+	
+	/*@ public normal_behavior 
+	  @ ensures \invariant_for(this);// \invariant_for(this) && getBalance() == newBalance;
+	  @ assignable \dl_account_fields;
+	  @*/
+	void setBalance(int newBalance);
+
+	//@ public normal_behavior 
+	//@ assignable \strictly_nothing;
+	//@accessible \dl_account_fields;
+	int /*@ pure @*/ getInterest();
+
+	/*@ requires this.\inv;
+	  @ ensures this.getInterest() == newInterest  && this.\inv;
+	  @ assignable \dl_account_fields;
+	  @*/
+	void setInterest(int newInterest);
+}
+
+
+final class Account implements AccountI{
 
 	final static int INTEREST_RATE = 2;
+
+
+	private final AccountI a;
+	// @requires \invariant_for(a);
+	//@ensures true;	
+	void testMethod(){
+		a.setBalance(0);
+	}
 
 	int interest = 0; //added
 	int balance;
 
-	/*@ assignable \nothing;
-	  @ ensures (balance >= 0 ==> \result >= 0) 
-	  @   && (balance <= 0 ==> \result <= 0);
-	  @*/
-	/*@ pure helper @*/ int calculateInterest() {
+	int calculateInterest() {
 		return balance * INTEREST_RATE / 36500;
+	}
+
+	int getBalance() {
+		return this.balance;
+	}
+	
+	void setBalance(int newBalance) {
+		this.balance = newBalance;
+	}
+
+	int getInterest() {
+		return this.interest;
+	}
+
+	void setInterest(int newInterest) {
+		this.interest = newInterest;
 	}
 
 }
