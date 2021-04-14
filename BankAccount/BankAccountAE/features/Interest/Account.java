@@ -2,13 +2,20 @@
 interface AccountI{
 
 	//@accessible \inv: \dl_account_fields;
-	// @ accessible \inv: \nothing;
+
 	/*@
 	  @ ensures (getBalance() >= 0 ==> \result >= 0) 
-	  @   && (getBalance() <= 0 ==> \result <= 0);
+	  @   && (getBalance() <= 0 ==> \result <= 0) && \result==calculateInterest();
+	  @ assignable \strictly_nothing;
+	  @ accessible \dl_account_fields;
 	  @*/
 	int /*@ pure @*/ calculateInterest();
 	
+	
+	/*@ ensures \result == getBalance();
+	  @ assignable \strictly_nothing;
+	  @ accessible \dl_account_fields;
+	  @*/
 	int /*@ pure @*/ getBalance();
 	
 	/*@ public normal_behavior 
@@ -17,9 +24,10 @@ interface AccountI{
 	  @*/
 	void setBalance(int newBalance);
 
-	//@ public normal_behavior 
-	//@ assignable \strictly_nothing;
-	//@accessible \dl_account_fields;
+	/*@ensures \result == getInterest();
+	  @assignable \strictly_nothing;
+	  @accessible \dl_account_fields;
+	  @*/
 	int /*@ pure @*/ getInterest();
 
 	/*@ requires this.\inv;

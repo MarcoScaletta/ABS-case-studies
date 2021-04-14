@@ -1,26 +1,19 @@
  class Application {
 
-	//@invariant \invariant_for(account) && \disjoint(field, \dl_account_fields);
+	//@invariant \invariant_for(account);
 	AccountI account; // added to access the field
-	int field = 0;
 
-	//cannot be proven
-	// /*@
-	//  @ ensures (account.getBalance() >= 0 ==> account.getInterest() >= \old(account.getInterest())) 
-	//  @   && (account.getBalance() <= 0 ==> account.getInterest() <= \old(account.getInterest()));
-	//  @*/
+	//@ghost int getInterestAtOriginal;
+	//@ghost int getBalanceAtOriginal;
 
-	//@requires \disjoint(\dl_account_fields, field) ;
-	//@ requires \disjoint(\dl_AccountI_frame, this.account);
-	// //@requires \disjoint(\dl_account_inv_footprint, field);
-	//@ensures \old(account.getInterest()) ==  field;
+	// remodelled to make it fulfill COBP
+
+    /*@requires \disjoint(this.account, \dl_account_fields) && \disjoint(this.getInterestAtOriginal, \dl_account_fields) && \disjoint(this.getBalanceAtOriginal, \dl_account_fields);
+	  @ ensures (getBalanceAtOriginal >= 0 ==> account.getInterest() >= this.getInterestAtOriginal) &&
+	  @  (getBalanceAtOriginal <= 0 ==> account.getInterest() <= this.getInterestAtOriginal);
+	  @*/
 	void nextDay() {
-		//the problem is that we do not require that ghostOldGetInterest is not referred in the \invariant_for(account)
-		field = account.getInterest();
 		/*@ae_constraint 
-				\disjoint(\dl_account_fields,\dl_frame) &&
-				\disjoint(this.field,\dl_frame) &&
-				\disjoint(this,\dl_frame) &&
 				\disjoint(this.account,\dl_frame);
 		@*/
 		{;}
@@ -34,10 +27,11 @@
           @ normal_behavior ensures \invariant_for(this);
           @*/
         \abstract_statement Original;
-		// account.setInterest(0);
-		// account.setInterest(account.getInterest());
-		//account.setInterest(account.calculateInterest() + account.getInterest());
+		//@set getInterestAtOriginal=account.getInterest();
+		//@set getBalanceAtOriginal=account.getBalance();
+		account.setInterest(account.calculateInterest() + account.getInterest());
 	}
+
 
 	// remodeled
 	// PROVED
