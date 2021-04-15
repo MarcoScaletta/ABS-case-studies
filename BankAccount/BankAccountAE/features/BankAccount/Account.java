@@ -1,15 +1,25 @@
+interface AccountI{
+	
+	/*@ ensures \result == getBalance();
+	  @ assignable \strictly_nothing;
+	  @*/
+	int /*@ pure @*/ getBalance();
+
+	
+	/*@
+	 @ ensures (!\result ==> getBalance() == \old(getBalance())) 
+	 @   && (\result ==> getBalance() == \old(getBalance()) + x); 
+	 @*/
+	boolean update(int x);
+}
+
+
 class Account {
 
 	final static int OVERDRAFT_LIMIT = 0;
 
 	//@ invariant balance >= OVERDRAFT_LIMIT;
 	int balance = 0;
-	
-	/*@
-	 @ ensures balance == 0;
-	 @*/
-	Account() {
-	}
 	
 	/*@
 	 @ ensures (!\result ==> balance == \old(balance)) 

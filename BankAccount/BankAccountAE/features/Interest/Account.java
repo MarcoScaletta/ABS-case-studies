@@ -42,14 +42,6 @@ final class Account implements AccountI{
 
 	final static int INTEREST_RATE = 2;
 
-
-	private final AccountI a;
-	// @requires \invariant_for(a);
-	//@ensures true;	
-	void testMethod(){
-		a.setBalance(0);
-	}
-
 	int interest = 0; //added
 	int balance;
 

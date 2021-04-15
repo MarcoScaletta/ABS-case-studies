@@ -1,7 +1,7 @@
  class Application {
 
 	//@invariant \invariant_for(account);
-	AccountI account; // added to access the field
+	AccountI account;
 
 	//@ghost int getInterestAtOriginal;
 	//@ghost int getBalanceAtOriginal;

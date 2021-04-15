@@ -5,7 +5,5 @@ class Application {
 	void nextDay() {
 	}
 
-	void nextYear() {
-	}
-	
+	//remodelling: removed nextYear	
 }
