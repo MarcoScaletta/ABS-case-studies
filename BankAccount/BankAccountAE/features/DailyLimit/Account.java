@@ -1,9 +1,33 @@
-class Account {
+interface AccountI{
+
+
+	/*@ ensures \result == getWithdraw();
+	  @ assignable \strictly_nothing;
+	  @*/
+	int /*@ pure @*/ getWithdraw();
+	
+	/*@ public normal_behavior 
+	  @ ensures \invariant_for(this) && getWithdraw() == newWithdraw;
+	  @*/
+	void setWithdraw(int newWithdraw);
+}
+
+class Account implements AccountI{
 
 	int DAILY_LIMIT = -1000;
 	
 	//@ invariant withdraw >= DAILY_LIMIT;
 	int withdraw = 0;
+
+	
+	int /*@ pure @*/ getWithdraw(){
+		return withdraw;
+	}
+
+	
+	void setWithdraw(int newWithdraw){
+		withdraw = newWithdraw;
+	}
 
 	// PROVED
 	/*@

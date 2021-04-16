@@ -1,10 +1,10 @@
 class Application {
 	
-	Account account; //added to access the field
+	AccountI account; //added to access the field
 
-  //PROVED
+  //TO BE VERIFIED
 	/*
-	 @ ensures account.withdraw == 0;
+	 @ ensures account.getWithdraw() == 0;
 	 @*/
 	void nextDay() {
 
@@ -18,7 +18,7 @@ class Application {
           @ normal_behavior ensures account != null; // invariant
           @*/
         \abstract_statement Original;
-		account.withdraw = 0;
+		account.setWithdraw(0);
 	}
 
 }
