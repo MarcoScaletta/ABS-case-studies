@@ -1,12 +1,12 @@
 delta DeltaCreditWorthiness {
 
 	modifies interface AccountI{
+		//@requires amount >= 0;
+		//@ensures getBalance() >= amount <==> \result;
 	   adds boolean credit(int amount);
 	}
 
 	modifies class Account{
-		//@requires amount >= 0;
-		//@ensures balance >= amount <==> \result;
 		adds boolean credit(int amount) {
 			return balance >= amount;
 		}
