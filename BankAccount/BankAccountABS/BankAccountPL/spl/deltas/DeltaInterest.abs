@@ -10,7 +10,7 @@ delta DeltaInterest when Interest {
 
 	modifies class Account {
 
-		adds Int INTEREST_RATE = 2;
+		adds [Final] Int INTEREST_RATE = 2;
 		adds Int interest = 0;
 
 		adds Int calculateInterest() { //BP-method
