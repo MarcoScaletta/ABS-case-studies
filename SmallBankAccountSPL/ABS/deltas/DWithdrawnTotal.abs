@@ -1,0 +1,12 @@
+delta DWithdrawnTotal when WithdrawnTotal{
+    modifies class BankAccount {
+        adds Int withdrawnTotal;
+
+        //@ensures x < 0 ==> (withdrawnTotal == \old(withdrawnTotal) - x);
+        modifies public void update(Int x) {
+                if(x < 0)
+                    withdrawnTotal = withdrawnTotal - x;
+                original(x);
+        }
+    }
+}

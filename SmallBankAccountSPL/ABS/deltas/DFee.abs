@@ -1,0 +1,12 @@
+delta DFee when Fee{
+    modifies class BankAccount {
+        adds Int fee;
+
+        //@ensures (x < 0) ==> (balance == balance@l - fee);
+        modifies public void update(Int x) {
+                l:original(x);
+                if(x < 0)
+                    balance = balance - fee;
+        }
+    }
+}

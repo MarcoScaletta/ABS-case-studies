@@ -1,0 +1,8 @@
+class BankAccount {
+    Int balance;
+
+    //@ensures balance == \old(this.balance) + x;
+    public void update(Int x) {
+        this.balance = this.balance + x;
+    }
+}

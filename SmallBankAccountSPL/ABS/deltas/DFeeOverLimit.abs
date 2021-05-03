@@ -1,0 +1,13 @@
+delta DFeeOverLimit after DWithdrawnTotal when FeeOverLimit {
+    modifies class BankAccount {
+        adds Int feeOverLimit;
+        adds Int limit;
+        
+        //@ensures (x < 0) ==> (balance == balance@l - feeOverLimit);
+        modifies public void update(Int x) { 
+            l:original(x);
+            if(x < 0 && withdrawnTotal > limit)
+                balance = balance - feeOverLimit;
+        }
+    }
+}
