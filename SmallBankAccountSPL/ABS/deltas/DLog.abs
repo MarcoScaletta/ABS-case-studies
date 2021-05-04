@@ -1,0 +1,14 @@
+delta DLog when Log{
+    modifies class BankAccount {
+        adds Int log;
+
+        //@ensures (x > 0) ==> (log == \old(log) + 1) && (x < 0) ==> (log == \old(log) + 1);
+        modifies public void update(Int x) {
+                if(x > 0)
+                    log = log*10 + 1;
+                if(x < 0)
+                    log = log*10 + 2;
+                original(x);
+        }
+    }
+}
