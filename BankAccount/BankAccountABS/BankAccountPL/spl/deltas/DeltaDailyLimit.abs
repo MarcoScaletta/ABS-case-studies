@@ -21,7 +21,7 @@ delta DeltaDailyLimit when DailyLimit{
 
 		//@ensures (!\result ==> withdraw == \old(withdraw)) && ( \result ==> withdraw <= \old(withdraw));
 		modifies Boolean update(Int x) { //COBP
-		Int newWithdraw = withdraw;
+			Int newWithdraw = withdraw;
 			if (x < 0)  {
 				newWithdraw += x;
 				if (newWithdraw < DAILY_LIMIT) 

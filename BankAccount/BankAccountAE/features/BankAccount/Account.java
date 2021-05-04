@@ -16,18 +16,21 @@ interface AccountI{
 
 class Account {
 
-	final static int OVERDRAFT_LIMIT = 0;
-
-	//@ invariant balance >= OVERDRAFT_LIMIT;
+	//@ invariant balance >= overdraftLimit();
 	int balance = 0;
 	
+	//@ensures \result <= 0;
+	int overdraftLimit(){
+		return 0;
+	}
+
 	/*@
 	 @ ensures (!\result ==> balance == \old(balance)) 
 	 @   && (\result ==> balance == \old(balance) + x); 
 	 @*/
 	boolean update(int x) {
 		int newBalance = balance + x;
-		if (newBalance < OVERDRAFT_LIMIT)
+		if (newBalance < overdraftLimit())
 			return false;
 		balance = newBalance;
 		return true;

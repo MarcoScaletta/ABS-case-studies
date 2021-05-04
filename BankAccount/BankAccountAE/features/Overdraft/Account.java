@@ -1,5 +1,8 @@
 class Account {
 
-	final static int OVERDRAFT_LIMIT = -5000;
+	//@ensures \result <= 5000;
+	int overdraftLimit(){
+		return 5000;
+	}
 
 }
