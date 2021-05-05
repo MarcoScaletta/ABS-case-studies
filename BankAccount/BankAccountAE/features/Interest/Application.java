@@ -1,6 +1,11 @@
  class Application {
 
-	//@invariant \invariant_for(account);
+	/*@invariant   \invariant_for(account) 
+	  @			&& \disjoint(this.account, \dl_account_fields)
+	  @			&& \disjoint(this.getInterestAtOriginal, \dl_account_fields)
+	  @			&& \disjoint(this.getBalanceAtOriginal, \dl_account_fields);
+	  @
+	  @*/
 	AccountI account;
 
 	//@ghost int getInterestAtOriginal;
@@ -8,9 +13,10 @@
 
 	// remodelled to make it fulfill COBP
 
-    /*@requires \disjoint(this.account, \dl_account_fields) && \disjoint(this.getInterestAtOriginal, \dl_account_fields) && \disjoint(this.getBalanceAtOriginal, \dl_account_fields);
-	  @ ensures (getBalanceAtOriginal >= 0 ==> account.getInterest() >= this.getInterestAtOriginal) &&
-	  @  (getBalanceAtOriginal <= 0 ==> account.getInterest() <= this.getInterestAtOriginal);
+    /*@ 
+	  @ public normal_behavior
+	  @ ensures (getBalanceAtOriginal >= 0 ==> account.getInterest() >= this.getInterestAtOriginal) 
+	  @      && (getBalanceAtOriginal <= 0 ==> account.getInterest() <= this.getInterestAtOriginal);
 	  @*/
 	void nextDay() {
 		/*@ae_constraint 
@@ -34,11 +40,11 @@
 
 
 	// remodeled
-	// PROVED
 	/*@
-	 @ ensures account.getBalance() == \old(account).getBalance() + \old(account).getInterest()
-	 @   && account.getInterest() == 0;
-	 @*/
+	  @ public normal_behavior
+	  @ ensures account.getBalance() == \old(account).getBalance() + \old(account).getInterest() 
+	  @      && account.getInterest() == 0;
+	  @*/
 	void nextYear() {
 		account.setBalance(account.getBalance() + account.getInterest());
 		account.setInterest(0);

@@ -4,33 +4,42 @@ interface AccountI{
 	//@accessible \inv: \dl_account_fields;
 
 	/*@
+	  @ public normal_behavior 
 	  @ ensures (getBalance() >= 0 ==> \result >= 0) 
-	  @   && (getBalance() <= 0 ==> \result <= 0) && \result==calculateInterest();
+	  @      && (getBalance() <= 0 ==> \result <= 0) 
+	  @      && \result==calculateInterest();
 	  @ assignable \strictly_nothing;
 	  @ accessible \dl_account_fields;
 	  @*/
 	int /*@ pure @*/ calculateInterest();
 	
 	
-	/*@ ensures \result == getBalance();
+	/*@ 
+	  @ public normal_behavior 
+	  @ ensures \result == getBalance();
 	  @ assignable \strictly_nothing;
 	  @ accessible \dl_account_fields;
 	  @*/
 	int /*@ pure @*/ getBalance();
 	
 	/*@ public normal_behavior 
-	  @ ensures \invariant_for(this);// \invariant_for(this) && getBalance() == newBalance;
+	  @ ensures \invariant_for(this) && getBalance() == newBalance;
 	  @ assignable \dl_account_fields;
 	  @*/
 	void setBalance(int newBalance);
 
-	/*@ensures \result == getInterest();
-	  @assignable \strictly_nothing;
-	  @accessible \dl_account_fields;
+	/*@ 
+	  @ public normal_behavior 
+	  @ ensures \result == getInterest();
+	  @ assignable \strictly_nothing;
+	  @ accessible \dl_account_fields;
 	  @*/
 	int /*@ pure @*/ getInterest();
 
-	/*@ requires this.\inv;
+	
+	/*@ 
+	  @ public normal_behavior 
+	  @ requires this.\inv;
 	  @ ensures this.getInterest() == newInterest  && this.\inv;
 	  @ assignable \dl_account_fields;
 	  @*/
@@ -40,13 +49,15 @@ interface AccountI{
 
 final class Account implements AccountI{
 
+	//@invariant \subset(this.interest,\dl_account_fields) && \subset(this.balance, \dl_account_fields);
+
 	final static int INTEREST_RATE = 2;
 
 	int interest = 0; //added
 	int balance;
 
 	int calculateInterest() {
-		return balance * INTEREST_RATE / 36500;
+		return this.balance * INTEREST_RATE / 36500;
 	}
 
 	int getBalance() {

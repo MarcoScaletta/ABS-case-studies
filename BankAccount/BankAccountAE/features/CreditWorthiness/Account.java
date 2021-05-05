@@ -1,12 +1,15 @@
 interface AccountI{
 
 	/*@
-	 @ requires amount >= 0;
-	 @ ensures getBalance() >= amount <==> \result;
-	 @*/
+	  @ public normal_behavior
+	  @ requires amount >= 0;
+	  @ ensures getBalance() >= amount <==> \result;
+	  @*/
 	boolean credit(int amount);
 
-	/*@ ensures \result == getBalance();
+	/*@
+	  @ public normal_behavior
+	  @ ensures \result == getBalance();
 	  @ assignable \strictly_nothing;
 	  @*/
 	int getBalance();

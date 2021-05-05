@@ -1,20 +1,23 @@
 interface AccountI{
 
-	/*@ public normal_behavior
+	/*@ 
+	  @ public normal_behavior 
 	  @ ensures \result == getWithdraw();
 	  @ assignable \strictly_nothing;
 	  @*/
 	int getWithdraw();
 	
-	/*@ public normal_behavior
+	/*@ 
+	  @ public normal_behavior 
 	  @ requires newWithdraw >= this.getDailyLimit(); //precondition necessary for the invariant
 	  @ ensures getWithdraw() == newWithdraw;
 	  @ assignable \dl_account_fields;
 	  @*/
 	void setWithdraw(int newWithdraw);
 
-	/*@ public normal_behavior 
-	  @ ensures \result <= -1000;
+	/*@ 
+	  @ public normal_behavior 
+	  @ ensures \result == -1000;
 	  @ assignable \strictly_nothing;
 	  @ accessible \nothing;
 	  @*/
@@ -39,18 +42,17 @@ class Account implements AccountI{
 		return -1000;
 	}
 
-	// PROVED
+	
 	/*@
-	 @ ensures (\result ==> withdraw <= \old(withdraw)) && (!\result ==> withdraw == \old(withdraw));
-	 @*/
-	boolean update(int x, boolean a) {
+	  @ public normal_behavior
+	  @ ensures (\result ==> withdraw <= \old(withdraw)) && (!\result ==> withdraw == \old(withdraw));
+	  @*/
+	boolean update(int x) {
 		
 		int newWithdraw = withdraw;	
 		/*@ae_constraint 
 				\disjoint(this.withdraw,\dl_frame) &&
 				\disjoint(this.withdraw,\dl_footprint) &&
-				\disjoint(a,\dl_frame) &&
-				\disjoint(a,\dl_footprint) &&
 				\disjoint(x,\dl_frame) &&
 				\disjoint(newWithdraw,\dl_frame) &&
 				\disjoint(newWithdraw,\dl_footprint);
@@ -59,7 +61,7 @@ class Account implements AccountI{
 
 		if (x < 0)  {
 			newWithdraw += x;
-			if (newWithdraw < getDailyLimit()) 
+			if (newWithdraw < getDailyLimit()) //modified 
 				return false;
 		}
 		
