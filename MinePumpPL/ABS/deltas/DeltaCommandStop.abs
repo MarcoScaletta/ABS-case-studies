@@ -4,7 +4,7 @@ delta DeltaCommandStop{
 
         /*@
           @ requires !pumpRunning;
-          @ ensures pumpRunning == False && systemActive == False;
+          @ ensures !pumpRunning && !systemActive;
           @ */
         adds Unit stopSystem() {
             if (pumpRunning) {

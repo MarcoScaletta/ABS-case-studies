@@ -1,4 +1,4 @@
-class MinePump (Environment env) implements MinePumpI{
+class MinePump (Environment env) {
 
 	Bool pumpRunning = False;
 
@@ -6,7 +6,7 @@ class MinePump (Environment env) implements MinePumpI{
 
     //remodelled
     /*@
-      @ ensures pumpRunning ==> (higher(\old(env.getWaterLevel()), Low) ==> (higher(\old(env.getWaterLevel()), env.getWaterLevel())));
+      @ ensures pumpRunning ==> (env.higher(\old(env.getWaterLevel()), Low) ==> (env.higher(\old(env.getWaterLevel()), env.getWaterLevel())));
       @*/
 	Unit timeShift() {
 		if (pumpRunning)
@@ -17,8 +17,8 @@ class MinePump (Environment env) implements MinePumpI{
       @ ensures (countProblems() == 0) ==> pumpRunning;
       @ */
 	Unit activatePump() {
-      if(countProblems() == 0)
-        pumpRunning = True;
+        if(countProblems() == 0)
+            pumpRunning = True;
 	}
 
     /*@

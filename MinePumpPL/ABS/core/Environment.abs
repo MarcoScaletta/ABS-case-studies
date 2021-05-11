@@ -21,22 +21,15 @@ interface EnvironmentI {
 	Bool isMethaneLevelCritical();
 
 	/*@
-	  @ ensures ((waterLevel1 == waterLevel2) ==> \result == 0 
-	  @		&& 	(waterLevel1 != waterLevel2 && (waterLevel1 == High || waterLevel2 == Low)) ==> \result == 1)
-	  @		|| 	(\result == -1);
-	  @ */
-    Int diffWaterLevel(WaterLevel waterLevel1, WaterLevel waterLevel2);
-
-	/*@
-	  @ ensures \result == (diffWaterLevel(waterLevel1, waterLevel2) == 1);
+	  @ ensures \result <==> (waterLevel1 != waterLevel2 && (waterLevel1 == High || waterLevel2 == Low));
 	  @ */
 	Bool higher(WaterLevel waterLevel1, WaterLevel waterLevel2);
 
-	private WaterLevel getWaterLevel();
+	WaterLevel getWaterLevel();
 
 }
 
-public class Environment {
+public class Environment implements EnvironmentI {
 
 	WaterLevel waterLevel = Normal;
 
@@ -77,7 +70,7 @@ public class Environment {
     }
 
 
-	private WaterLevel getWaterLevel() {
+	WaterLevel getWaterLevel() {
 		return waterLevel;
 	}
 

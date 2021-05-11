@@ -10,10 +10,10 @@ delta DeltaHighWaterSensor {
         }
 
         /*@
-          @ ensures systemActive && !pumpRunning && isHighWaterLevel() 
+          @ ensures systemActive@l && !pumpRunning@l && isHighWaterLevel()
           @           ==> ((countProblems() == 0) ==> pumpRunning);
           @ */
-        modifies timeShift() {
+        modifies Unit timeShift() {
             original();
             if(systemActive && !pumpRunning && isHighWaterLevel())
                 activatePump();
@@ -23,7 +23,7 @@ delta DeltaHighWaterSensor {
     modifies interface EnvironmentI {
 
         /*@
-          @ ensures \result == (High != this.getWaterLevel)
+          @ ensures \result == (High != this.getWaterLevel())
           @ */
         adds boolean isHighWaterSensorDry();
     }

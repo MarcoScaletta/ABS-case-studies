@@ -3,7 +3,7 @@ delta DeltaMethaneAlarm{
     modifies MinePump {
 
         /*@
-          @ ensures (systemActive && pumpRunning && isMethaneAlarm()) ==> !isRunning;
+          @ ensures (systemActive && pumpRunning && isMethaneAlarm()) ==> !pumpRunning;
           @ */
         modifies Unit timeShift() {
 			if (systemActive && pumpRunning && isMethaneAlarm()) {
