@@ -1,0 +1,37 @@
+delta DeltaHighWaterSensor {
+
+    modifies class MinePump {
+
+        /*@
+          @ ensures \result == !env.isHighWaterSensorDry();
+          @ */
+        adds Bool isHighWaterLevel() {
+            return !env.isHighWaterSensorDry();
+        }
+
+        /*@
+          @ ensures systemActive && !pumpRunning && isHighWaterLevel() 
+          @           ==> ((countProblems() == 0) ==> pumpRunning);
+          @ */
+        modifies timeShift() {
+            original();
+            if(systemActive && !pumpRunning && isHighWaterLevel())
+                activatePump();
+        }
+    }
+
+    modifies interface EnvironmentI {
+
+        /*@
+          @ ensures \result == (High != this.getWaterLevel)
+          @ */
+        adds boolean isHighWaterSensorDry();
+    }
+
+    modifies class Environment {
+        adds boolean isHighWaterSensorDry() {
+            return waterLevel != High;
+        }
+    }
+
+}

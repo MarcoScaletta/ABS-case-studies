@@ -1,0 +1,49 @@
+class MinePump (Environment env) implements MinePumpI{
+
+	Bool pumpRunning = False;
+
+	Bool systemActive = True;
+
+    //remodelled
+    /*@
+      @ ensures pumpRunning ==> (higher(\old(env.getWaterLevel()), Low) ==> (higher(\old(env.getWaterLevel()), env.getWaterLevel())));
+      @*/
+	Unit timeShift() {
+		if (pumpRunning)
+			env.lowerWaterLevel();
+	}
+
+    /*@
+      @ ensures (countProblems() == 0) ==> pumpRunning;
+      @ */
+	Unit activatePump() {
+      if(countProblems() == 0)
+        pumpRunning = True;
+	}
+
+    /*@
+      @ ensures !pumpRunning;
+      @ */
+	Unit deactivatePump() {
+		pumpRunning = False;
+	}
+
+    //needed for remodelling
+    /*@
+      @ ensures \result >= 0;
+      @ */
+    Int countProblems(){
+        return 0;
+    }
+
+    /*@
+      @ ensures \result == env.isMethaneLevelCritical();
+      @ */
+	Bool isMethaneAlarm() {
+		return env.isMethaneLevelCritical();
+	}
+
+	Environment getEnv() {
+		return env;
+	}
+}

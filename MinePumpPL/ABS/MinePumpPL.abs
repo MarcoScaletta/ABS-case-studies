@@ -1,0 +1,10 @@
+productline MinePumpPL {
+    features Command, Start, MethaneSensor, Alarm, Query, WaterSensor, Low, High;
+
+    delta DeltaCommandStart when Command and Start;
+    delta DeltaCommandStop when Command and Stop;
+    delta DeltaMethaneSensorAlarm when MethaneSensor, Alarm;
+    delta DeltaMethaneSensorQuery when MethaneSensor, Query;
+    delta DeltaWaterSensorLow after DeltaMethaneSensorAlarm, DeltaWaterSensorHigh when WaterSensor, Low;
+    delta DeltaWaterSensorHigh after DeltaMethaneSensorAlarm when WaterSensor, High;
+}

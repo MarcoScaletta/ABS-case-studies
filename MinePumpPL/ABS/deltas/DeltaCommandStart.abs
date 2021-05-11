@@ -1,0 +1,13 @@
+delta DeltaCommandStart{
+
+    modifies MinePump {
+
+        /*@
+          @ requires !pumpRunning;
+          @ ensures systemActive && !pumpRunning;
+          @ */
+        adds Unit startSystem() {
+		    systemActive = True;
+	    }
+    }
+}

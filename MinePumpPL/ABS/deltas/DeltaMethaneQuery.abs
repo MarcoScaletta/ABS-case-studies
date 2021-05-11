@@ -1,0 +1,12 @@
+delta DeltaMethaneQuery{
+
+    modifies MinePump {
+
+        /*@
+          @ ensures \result >= 1;
+          @ */
+        Int countProblems(){
+            return original() + 1;
+        }
+    }
+}

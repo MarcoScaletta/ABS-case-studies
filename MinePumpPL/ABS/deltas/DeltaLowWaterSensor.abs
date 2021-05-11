@@ -1,0 +1,35 @@
+delta DeltaLowWaterSensor {
+    
+    modifies MinePump {
+
+        /*@
+          @ ensures (systemActive && pumpRunning && isLowWaterLevel()) ==> !isRunning;
+          @ */
+        modifies Unit timeShift(){
+            original();
+            if (systemActive && pumpRunning && isLowWaterLevel()) {
+			    deactivatePump();
+		    }
+        }
+
+        /*@
+          @ ensures \result == !env.isLowWaterSensorDry();
+          @ */
+        adds Bool isLowWaterLevel() {
+            return !env.isLowWaterSensorDry();
+        }
+    }
+
+    modifies interface EnvironmentI{
+        /*@
+        @ ensures \result == (Low == this.getWaterLevel)
+        @ */
+        adds boolean isLowWaterSensorDry ();
+    }
+
+    modifies class Environment{
+        adds boolean isLowWaterSensorDry () {
+            return waterLevel == Low;
+        }
+    }
+}

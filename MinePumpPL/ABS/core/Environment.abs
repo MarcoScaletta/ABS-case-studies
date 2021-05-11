@@ -1,0 +1,84 @@
+
+data WaterLevel = Low, Normal, High;
+
+interface EnvironmentI {
+
+	/*@
+	  @ ensures higher(\old(this.getWaterLevel()), Low) ==> (higher(\old(this.getWaterLevel()), this.getWaterLevel()));
+	  @ */
+	Unit lowerWaterLevel();
+
+	/*@
+	  @ ensures higher(High, \old(this.getWaterLevel())) ==> (higher(this.getWaterLevel(), \old(this.getWaterLevel())))
+	  @ */
+	Unit waterRise();
+
+	/*@
+	  @ ensures this.isMethaneLevelCritical() == !\old(this.isMethaneLevelCritical());
+	  @ */
+	Unit changeMethaneLevel();
+
+	Bool isMethaneLevelCritical();
+
+	/*@
+	  @ ensures ((waterLevel1 == waterLevel2) ==> \result == 0 
+	  @		&& 	(waterLevel1 != waterLevel2 && (waterLevel1 == High || waterLevel2 == Low)) ==> \result == 1)
+	  @		|| 	(\result == -1);
+	  @ */
+    Int diffWaterLevel(WaterLevel waterLevel1, WaterLevel waterLevel2);
+
+	/*@
+	  @ ensures \result == (diffWaterLevel(waterLevel1, waterLevel2) == 1);
+	  @ */
+	Bool higher(WaterLevel waterLevel1, WaterLevel waterLevel2);
+
+	private WaterLevel getWaterLevel();
+
+}
+
+public class Environment {
+
+	WaterLevel waterLevel = Normal;
+
+	Bool methaneLevelCritical = False;
+
+	Unit lowerWaterLevel() {
+        if(waterLevel == High)
+			waterLevel = Normal;
+        else if(waterLevel == Normal)
+			waterLevel = Low;
+	}
+
+	Unit waterRise() {
+        if(waterLevel == Low)
+			waterLevel = Normal;
+        else if(waterLevel == Normal)
+			waterLevel = High;
+	}
+
+	Unit changeMethaneLevel() {
+		methaneLevelCritical = !methaneLevelCritical;
+	}
+
+	Bool isMethaneLevelCritical() {
+		return methaneLevelCritical;
+	}
+
+    Int diffWaterLevel(WaterLevel waterLevel1, WaterLevel waterLevel2){
+        if(waterLevel1 == waterLevel2)
+            return 0;
+        if(waterLevel1 == High || waterLevel2 == Low)
+            return 1;
+		return -1;
+    }
+
+	Bool higher(WaterLevel waterLevel1, WaterLevel waterLevel2){
+        diffWaterLevel(waterLevel1, waterLevel2) == 1;
+    }
+
+
+	private WaterLevel getWaterLevel() {
+		return waterLevel;
+	}
+
+}

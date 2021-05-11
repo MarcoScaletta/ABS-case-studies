@@ -1,0 +1,16 @@
+delta DeltaMethaneAlarm{
+
+    modifies MinePump {
+
+        /*@
+          @ ensures (systemActive && pumpRunning && isMethaneAlarm()) ==> !isRunning;
+          @ */
+        modifies Unit timeShift() {
+			if (systemActive && pumpRunning && isMethaneAlarm()) {
+			    deactivatePump();
+		    } else {
+			    original();
+		    }
+        }
+    }
+}

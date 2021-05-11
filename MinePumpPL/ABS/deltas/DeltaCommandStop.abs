@@ -1,0 +1,16 @@
+delta DeltaCommandStop{
+
+    modifies MinePump {
+
+        /*@
+          @ requires !pumpRunning;
+          @ ensures pumpRunning == False && systemActive == False;
+          @ */
+        adds Unit stopSystem() {
+            if (pumpRunning) {
+                deactivatePump();
+            }
+            systemActive = False;
+        }
+    }
+}
