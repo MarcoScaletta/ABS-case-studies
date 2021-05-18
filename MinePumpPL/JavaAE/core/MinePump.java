@@ -1,20 +1,28 @@
 class MinePump {
 
+  //TO BE FIXED
+
+  //@invariant \invariant_for(env) && \disjoint(\dl_env_fields, pumpRunning) && \disjoint(\dl_env_fields, systemActive) && \disjoint(\dl_env_fields, env);
+
 	boolean pumpRunning = false;
 
 	boolean systemActive = true;
+
+    int tmp;
 
 
 	EnvironmentI env;
 
 	public MinePump(EnvironmentI env) {
-		super();
 		this.env = env;
 	}
 
     //remodelled
     /*@
-      @ ensures pumpRunning ==> (env.higher(\old(env.getWaterLevel()), Environment.WaterLevel.low) ==> (env.higher(\old(env.getWaterLevel()), env.getWaterLevel())));
+      @ public normal_behavior
+      @ ensures  (pumpRunning ==>
+      @          (\old(env.getWaterLevel()) == WaterLevel.high) ==> (env.getWaterLevel() == WaterLevel.normal) 
+      @       && (\old(env.getWaterLevel()) == WaterLevel.normal) ==> (env.getWaterLevel() == WaterLevel.low));
       @*/
 	void timeShift() {
 		if (pumpRunning)
@@ -22,7 +30,8 @@ class MinePump {
 	}
 
     /*@
-      @ ensures (countProblems() == 0) ==> pumpRunning;
+      @ public normal_behavior
+      @ ensures ((this.countProblems() == 0) ==> pumpRunning);
       @ */
 	void activatePump() {
         if(countProblems() == 0)
@@ -30,6 +39,7 @@ class MinePump {
 	}
 
     /*@
+      @ public normal_behavior
       @ ensures !pumpRunning;
       @ */
 	void deactivatePump() {
@@ -38,20 +48,20 @@ class MinePump {
 
     //needed for remodelling
     /*@
-      @ ensures \result >= 0;
+      @ public normal_behavior
+      @ ensures \result >= 0 && \result == countProblems();
+      @ assignable \strictly_nothing;
       @ */
     int countProblems(){
         return 0;
     }
 
     /*@
+      @ public normal_behavior
       @ ensures \result == env.isMethaneLevelCritical();
       @ */
 	boolean isMethaneAlarm() {
 		return env.isMethaneLevelCritical();
 	}
 
-	EnvironmentI getEnv() {
-		return env;
-	}
 }

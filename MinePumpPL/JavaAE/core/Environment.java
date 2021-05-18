@@ -2,12 +2,16 @@
 
 interface EnvironmentI {
 
+	
+	//@accessible \inv: \dl_env_fields;
+
 	//TO_BE_FINISHED
 
 	/*@ 
 	  @ public normal_behavior
-	  @ ensures (\old(this.getWaterLevel()) == Environment.WaterLevel.high) ==> (this.getWaterLevel() == Environment.WaterLevel.normal) || 
-	  @ 	    (\old(this.getWaterLevel()) == Environment.WaterLevel.normal) ==> (this.getWaterLevel() == Environment.WaterLevel.low); 
+	  @ ensures (\old(this.getWaterLevel()) == WaterLevel.high) ==> (this.getWaterLevel() == WaterLevel.normal) && 
+	  @ 	    (\old(this.getWaterLevel()) == WaterLevel.normal) ==> (this.getWaterLevel() == WaterLevel.low);
+	  @ assignable \dl_env_fields;
 	  @ */
 	void lowerWaterLevel();
 
@@ -15,8 +19,8 @@ interface EnvironmentI {
 
 	/*@ 
 	  @ public normal_behavior
-	  @ ensures (\old(this.getWaterLevel()) == Environment.WaterLevel.normal) ==> (this.getWaterLevel() == Environment.WaterLevel.high) || 
-	  @ 	    (\old(this.getWaterLevel()) == Environment.WaterLevel.low) ==> (this.getWaterLevel() == Environment.WaterLevel.normal); 
+	  @ ensures (\old(this.getWaterLevel()) == WaterLevel.low) ==> (this.getWaterLevel() == WaterLevel.normal) &&
+	  @ 	    (\old(this.getWaterLevel()) == WaterLevel.normal) ==> (this.getWaterLevel() == WaterLevel.high); 
 	  @ */
 	void waterRise();
 
@@ -35,37 +39,33 @@ interface EnvironmentI {
 
 	/*@
 	  @ public normal_behavior
-	  @ ensures \result <==> (waterLevel1 != waterLevel2 && (waterLevel1 == Environment.WaterLevel.high || waterLevel2 == Environment.WaterLevel.low));
-	  @ */
-	boolean higher(Environment.WaterLevel waterLevel1, Environment.WaterLevel waterLevel2);
-
-	/*@
-	  @ public normal_behavior
-	  @ ensures \result == this.getWaterLevel();
+	  @ ensures \result == getWaterLevel();
 	  @ assignable \strictly_nothing;
 	  @ */
-	Environment.WaterLevel getWaterLevel();
+	int getWaterLevel();
 
 }
 
 public class Environment implements EnvironmentI{
 
-	WaterLevel waterLevel = WaterLevel.normal;
+	//@invariant waterLevel >=0 && waterLevel <=2 && \subset(waterLevel,\dl_env_fields);
+
+	int waterLevel = WaterLevel.normal;
 
 	boolean methaneLevelCritical = false;
 
 	void lowerWaterLevel() {
-        if(getWaterLevel() == WaterLevel.high)
-			setWaterLevel(WaterLevel.normal);
-        else if(getWaterLevel() == WaterLevel.normal)
-			setWaterLevel(WaterLevel.low);
+        if(waterLevel == WaterLevel.high)
+			waterLevel = WaterLevel.normal;
+        else if(waterLevel == WaterLevel.normal)
+			waterLevel = WaterLevel.low;
 	}
 
 	void waterRise() {
-        if(getWaterLevel() == WaterLevel.low)
-			setWaterLevel(WaterLevel.normal);
-        else if(getWaterLevel() == WaterLevel.normal)
-			setWaterLevel(WaterLevel.high);
+        if(waterLevel == WaterLevel.low)
+			waterLevel = WaterLevel.normal;
+        else if(waterLevel == WaterLevel.normal)
+			waterLevel = WaterLevel.high;
 	}
 
 	void changeMethaneLevel() {
@@ -76,28 +76,15 @@ public class Environment implements EnvironmentI{
 		return methaneLevelCritical;
 	}
 
-	boolean higher(WaterLevel waterLevel1, WaterLevel waterLevel2){
-        return waterLevel1 != waterLevel2 && (waterLevel1 == WaterLevel.high || waterLevel2 == WaterLevel.low);
-    }
-
-	/*@
-	  @ public normal_behavior
-	  @ ensures \result == waterLevel;
-	  @ */
-	WaterLevel getWaterLevel() {
+	int getWaterLevel() {
 		return waterLevel;
 	}
+}
 
-	/*@
-	  @ public normal_behavior
-	  @ ensures getWaterLevel() == newWaterLevel;
-	  @ */
-	WaterLevel setWaterLevel(WaterLevel newWaterLevel) {
-		waterLevel = newWaterLevel;
-	}
+interface WaterLevel {
 
-	public static enum WaterLevel {
-		low, normal, high;
-	}
+   public static final int low = 0;
+   public static final int normal = 1;
+   public static final int high = 2;
 
 }

@@ -16,7 +16,7 @@ class MinePump {
 
     // proven using Liskov Behavioral Principle
     /*@
-      @ ensures isMethaneAlarm() ==> \result >= 1;
+      @ ensures \result >= 0 && isMethaneAlarm() ==> \result >= 1;
       @ */
     int countProblems(){
         int count = countProblemsLiskovPrevious();
