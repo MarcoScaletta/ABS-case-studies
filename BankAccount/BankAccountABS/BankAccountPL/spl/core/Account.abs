@@ -5,9 +5,12 @@ interface AccountI{
 }
 
 class Account {
-	//@ invariant balance >= OVERDRAFT_LIMIT;
-	[Final] Int OVERDRAFT_LIMIT = 0;
+	//@ invariant balance >= overdraftLimit();
 
+	//@ensures \result <= 0;
+	Int overdraftLimit(){
+		return 0;
+	}
 	
 	Int balance = 0;
 	
@@ -15,7 +18,7 @@ class Account {
 	//@ensures (!\result ==> balance == \old(balance)) && (\result ==> balance == \old(balance) + x);
 	Boolean update(Int x) { //non BP-method
 		Int newBalance = balance + x;
-		if (newBalance < OVERDRAFT_LIMIT)
+		if (newBalance < overdraftLimit())
 			return false;
 		balance = newBalance;
 		return true;

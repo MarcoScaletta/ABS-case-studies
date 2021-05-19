@@ -17,14 +17,12 @@ delta DeltaDailyLimit when DailyLimit{
 
 		adds Int withdraw = 0;
 
-		adds [Final] Int DAILY_LIMIT = -1000;
-
 		//@ensures (!\result ==> withdraw == \old(withdraw)) && ( \result ==> withdraw <= \old(withdraw));
 		modifies Boolean update(Int x) { //COBP
 			Int newWithdraw = withdraw;
 			if (x < 0)  {
 				newWithdraw += x;
-				if (newWithdraw < DAILY_LIMIT) 
+				if (newWithdraw < getDailyLimit()) 
 					return false;
 			}
 			if (!original(x))
@@ -34,7 +32,7 @@ delta DeltaDailyLimit when DailyLimit{
 		}
 
 		adds Int getDailyLimit(){ //BP-method
-			return DAILY_LIMIT;
+			return -1000;
 		}
 
 		adds Int getWithdraw(){ //BP-method
