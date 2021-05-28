@@ -1,4 +1,4 @@
-class MinePump (Environment env) {
+class MinePump (EnvironmentI env) {
 
 	Bool pumpRunning = False;
 
