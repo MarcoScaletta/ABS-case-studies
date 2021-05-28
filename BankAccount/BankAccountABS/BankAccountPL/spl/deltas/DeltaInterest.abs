@@ -41,7 +41,7 @@ delta DeltaInterest when Interest {
 
 		// remodeled because of the contract
 		//@ensures account.getBalance() == \old(account.getBalance()) + \old(account.getInterest()) && account.getInterest() == 0
-		adds void nextYear() { //BP-method
+		modifies void nextYear() { //BP-method
 			account.setBalance(account.getBalance() + account.getInterest());
 			account.setInterest(0);
 		}

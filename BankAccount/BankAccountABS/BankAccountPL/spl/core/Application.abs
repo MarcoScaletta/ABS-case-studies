@@ -2,7 +2,10 @@ class Application {
 	
 	AccountI account = new Account();
 
-	void nextDay() { //non BP-method
+	void nextDay() {  //non BP-method
+	}
+	
+	void nextYear() { //non BP-method
 	}
 	
 }

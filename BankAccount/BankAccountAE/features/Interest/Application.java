@@ -15,8 +15,8 @@
 
     /*@ 
 	  @ public normal_behavior
-	  @ ensures (getBalanceAtOriginal >= 0 ==> account.getInterest() >= this.getInterestAtOriginal) 
-	  @      && (getBalanceAtOriginal <= 0 ==> account.getInterest() <= this.getInterestAtOriginal);
+	  @ ensures (this.getBalanceAtOriginal >= 0 ==> account.getInterest() >= this.getInterestAtOriginal) 
+	  @      && (this.getBalanceAtOriginal <= 0 ==> account.getInterest() <= this.getInterestAtOriginal);
 	  @*/
 	void nextDay() {
 		/*@ae_constraint 

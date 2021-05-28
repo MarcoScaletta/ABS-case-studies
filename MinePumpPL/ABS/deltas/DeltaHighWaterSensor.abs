@@ -10,8 +10,8 @@ delta DeltaHighWaterSensor {
         }
 
         /*@
-          @ ensures systemActive@l && !pumpRunning@l && isHighWaterLevel()
-          @           ==> ((countProblems() == 0) ==> pumpRunning);
+          @ ensures systemActive@l && !pumpRunning@l && isHighWaterLevel()@l
+          @           ==> ((countProblems()@l == 0) ==> pumpRunning);
           @ */
         modifies Unit timeShift() {
             original();
