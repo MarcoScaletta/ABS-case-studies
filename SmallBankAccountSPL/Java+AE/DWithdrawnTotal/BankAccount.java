@@ -2,20 +2,17 @@ public class BankAccount{
 
     public int withdrawnTotal;
 
-    //@ghost int oldX;
-
     /*@public normal_behavior
-      @ensures (oldX < 0) ==> (this.withdrawnTotal == \old(this.withdrawnTotal) - oldX);
+      @requires \disjoint(x,\dl_frame);
+      @ensures (x < 0) ==> (this.withdrawnTotal == \old(this.withdrawnTotal) - x);
       @*/
     public void update(int x){
-        //@set oldX = x;
         if(x < 0)
         this.withdrawnTotal = this.withdrawnTotal - x;
         /*@ae_constraint 
                 \disjoint(this.withdrawnTotal,\dl_frame) &&
                 \disjoint(this.withdrawnTotal,\dl_footprint) &&
-                \disjoint(x,\dl_frame) &&
-                \disjoint(oldX,\dl_frame);
+                \disjoint(x,\dl_frame);
         @*/
         {;}
       /*@

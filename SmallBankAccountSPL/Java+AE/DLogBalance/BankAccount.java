@@ -12,10 +12,6 @@ class BankAccount {
       @*/
 
     public void update(int x) {
-        /*@ ae_constraint 
-                \disjoint(x,\dl_frame);
-          @*/
-        {;}
         /*@
           @ assignable \dl_frame;
           @ accessible  \dl_footprint;

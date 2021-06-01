@@ -5,21 +5,19 @@ class BankAccount {
     int feeOverLimit;
     int limit;
     //@ghost int balanceAtL;
-    //@ghost int oldX;
 
     /*@ public normal_behavior
-      @ensures (oldX < 0 && withdrawnTotal > limit) ==> (balance == balanceAtL - feeOverLimit);
+      @requires \disjoint(x,\dl_frame);
+      @ensures (x < 0 && withdrawnTotal > limit) ==> (balance == balanceAtL - feeOverLimit);
       @*/
 
     public void update(int x) {
-        //@ set oldX = x;
         /*@ ae_constraint 
                 \disjoint(feeOverLimit,\dl_frame) &&
                 \disjoint(feeOverLimit,\dl_footprint) &&
                 \disjoint(limit,\dl_frame) &&
-                \disjoint(limit,\dl_footprint)&&
-                \disjoint(x,\dl_frame)&&
-                \disjoint(oldX,\dl_frame);
+                \disjoint(limit,\dl_footprint) &&
+                \disjoint(x,\dl_frame);
           @*/
         {;}
         /*@

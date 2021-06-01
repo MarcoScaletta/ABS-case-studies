@@ -1,14 +1,13 @@
 
 class BankAccount {
     int log;
-    //@ghost int oldX;
 
-    /*@
-      @ ensures ((oldX > 0) ==> (log == \old(log)*10 + 1)) && ((oldX < 0) ==> (log == \old(log)*10 + 2));
+    /*@ public normal_behavior
+      @ requires \disjoint(x,\dl_frame);
+      @ ensures ((x > 0) ==> (log == \old(log)*10 + 1)) && ((x < 0) ==> (log == \old(log)*10 + 2));
       @*/
 
     public void update(int x) {
-      //@set oldX = x;
 
       if(x > 0)
           log = log*10 + 1;
@@ -18,8 +17,7 @@ class BankAccount {
         /*@ ae_constraint 
                 \disjoint(x,\dl_frame)&&
                 \disjoint(log,\dl_frame)&&
-                \disjoint(log,\dl_footprint)&&
-                \disjoint(oldX,\dl_frame);
+                \disjoint(log,\dl_footprint);
           @*/
         {;}
         /*@

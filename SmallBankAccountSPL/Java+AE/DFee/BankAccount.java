@@ -4,20 +4,18 @@ public class BankAccount{
     public int fee;
 
     //@ghost int balanceAtL;
-    //@ghost int oldX;
 
     /*@
       @public normal_behavior
-      @ensures (oldX < 0) ==> (balance == balanceAtL - fee); 
+      @requires \disjoint(x,\dl_frame);
+      @ensures (x < 0) ==> (balance == balanceAtL - fee); 
      */
     public void update(int x){
-        //@set oldX = x;
 
         /*@ae_constraint 
                 \disjoint(this.fee,\dl_frame) &&
                 \disjoint(this.fee,\dl_footprint) &&
-                \disjoint(x,\dl_frame)&&
-                \disjoint(oldX,\dl_frame);
+                \disjoint(x,\dl_frame);
         @*/
         {;}
       /*@
