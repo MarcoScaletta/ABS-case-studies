@@ -3,7 +3,7 @@ delta DeltaMethaneQuery{
     modifies MinePump {
 
         /*@
-          @ ensures \result >= 0 && isMethaneAlarm ==> \result >= 1;
+          @ ensures \result >= 0 && isMethaneAlarm() ==> \result >= 1;
           @ */
         Int countProblems(){
             Int count = original();

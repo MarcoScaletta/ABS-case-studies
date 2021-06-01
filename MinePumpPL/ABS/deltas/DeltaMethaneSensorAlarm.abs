@@ -1,4 +1,4 @@
-delta DeltaMethaneAlarm{
+delta DeltaMethaneSensorAlarm{
 
     modifies MinePump {
 
