@@ -31,11 +31,11 @@ delta DeltaInterest when Interest {
 
 	modifies class Application {
 	
-		/*@ensures (account.getBalance() >= 0 ==> account.getInterest() >= \old(account.getInterest())) && 
-		  @		   (account.getBalance() <= 0 ==> account.getInterest() <= \old(account.getInterest()))
+		/*@ensures (account.getBalance()@l >= 0 ==> account.getInterest() >= account.getInterest()@l) && 
+		  @		   (account.getBalance()@l <= 0 ==> account.getInterest() <= account.getInterest()@l)
 		  @*/
 		modifies void nextDay() { //COBP
-			original();
+			l:original();
 			account.setInterest(account.calculateInterest() + account.getInterest());
 		}
 
