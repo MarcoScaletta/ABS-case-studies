@@ -29,7 +29,7 @@ public class BankAccount{
         @*/
         \abstract_statement Original;
           //@set balanceAtL = balance;
-          if(x < 0)
-            this.balance = this.balance - this.fee;
-      }
+        if(x < 0)
+          this.balance = this.balance - this.fee;
+    }
 }
