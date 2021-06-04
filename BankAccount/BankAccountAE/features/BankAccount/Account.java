@@ -17,14 +17,28 @@ interface AccountI{
 }
 
 
-class Account {
+class Account implements AccountI {
 
 	//@ invariant balance >= overdraftLimit();
 	int balance = 0;
 	
-	//@ensures \result <= 0;
+	/*@ 
+	  @ public normal_behavior
+	  @ ensures \result <= 0 && \result==overdraftLimit();
+	  @ assignable \strictly_nothing;
+	  @*/
 	int overdraftLimit(){
 		return 0;
+	}
+
+	
+	/*@ 
+	  @ public normal_behavior
+	  @ ensures \result == getBalance();
+	  @ assignable \strictly_nothing;
+	  @*/
+	int getBalance(){
+		return this.balance;
 	}
 
 	boolean update(int x) {

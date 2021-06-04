@@ -1,5 +1,5 @@
 interface AccountI{
-
+	//@instance invariant getWithdraw() >= getDailyLimit();
 	/*@ 
 	  @ public normal_behavior 
 	  @ ensures \result == getWithdraw();
