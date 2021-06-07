@@ -14,7 +14,7 @@ delta DeltaHighWaterSensor {
           @           ==> ((countProblems()@l == 0) ==> pumpRunning);
           @ */
         modifies Unit timeShift() {
-            original();
+            l:original();
             if(systemActive && !pumpRunning && isHighWaterLevel())
                 activatePump();
         }
