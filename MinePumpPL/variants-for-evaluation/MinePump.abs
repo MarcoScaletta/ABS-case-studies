@@ -115,8 +115,8 @@ class MinePump (EnvironmentI env) {
     }
 
     /*@
-      @ ensures systemActive@l && !pumpRunning@l && isHighWaterLevel()@l
-      @           ==> ((countProblems()@l == 0) ==> pumpRunning);
+      @ ensures \old(systemActive, l) && !\old(pumpRunning, l) && \old(isHighWaterLevel(), l)
+      @           ==> ((\old(countProblems() ,l) == 0) ==> pumpRunning);
       @ */
     Unit high_timeShift() {
         l:timeShift();
@@ -145,8 +145,8 @@ class MinePump (EnvironmentI env) {
     // LOW_HIGH
 
     /*@
-      @ ensures systemActive@l && !pumpRunning@l && isHighWaterLevel()@l
-      @           ==> ((countProblems()@l == 0) ==> pumpRunning);
+      @ ensures \old(systemActive, l) && !\old(pumpRunning, l) && \old(isHighWaterLevel(), l)
+      @           ==> ((\old(countProblems() ,l) == 0) ==> pumpRunning);
       @ */
     Unit low_high_timeShift() {
         l:low_timeShift();

@@ -3,7 +3,7 @@ delta DFeeOverLimit after DWithdrawnTotal when FeeOverLimit {
         adds Int feeOverLimit;
         adds Int limit;
         
-        //@ensures (x < 0) ==> (balance == balance@l - feeOverLimit);
+        //@ensures (x < 0) ==> (balance == \old(balance, l) - feeOverLimit);
         modifies public void update(Int x) { 
             l:original(x);
             if(x < 0 && withdrawnTotal > limit)
