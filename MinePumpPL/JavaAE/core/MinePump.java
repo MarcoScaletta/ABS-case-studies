@@ -1,7 +1,5 @@
 class MinePump {
 
-  //TO BE FIXED
-
   //@invariant \invariant_for(env) && \disjoint(\dl_env_fields, pumpRunning) && \disjoint(\dl_env_fields, systemActive) && \disjoint(\dl_env_fields, env);
 
 	boolean pumpRunning = false;
