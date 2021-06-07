@@ -1,0 +1,209 @@
+
+data WaterLevel = Low, Normal, High;
+
+interface EnvironmentI {
+
+	/*@
+	  @ ensures higher(\old(this.getWaterLevel()), Low) ==> (higher(\old(this.getWaterLevel()), this.getWaterLevel()));
+	  @ */
+	Unit lowerWaterLevel();
+
+	/*@
+	  @ ensures higher(High, \old(this.getWaterLevel())) ==> (higher(this.getWaterLevel(), \old(this.getWaterLevel())))
+	  @ */
+	Unit waterRise();
+
+	/*@
+	  @ ensures this.isMethaneLevelCritical() == !\old(this.isMethaneLevelCritical());
+	  @ */
+	Unit changeMethaneLevel();
+
+	Bool isMethaneLevelCritical();
+
+	/*@
+	  @ ensures \result <==> (waterLevel1 != waterLevel2 && (waterLevel1 == High || waterLevel2 == Low));
+	  @ */
+	Bool higher(WaterLevel waterLevel1, WaterLevel waterLevel2);
+
+	WaterLevel getWaterLevel();
+
+}
+
+
+class MinePump (EnvironmentI env) {
+
+    // CORE
+
+	Bool pumpRunning = False;
+
+	Bool systemActive = True;
+
+    /*@
+      @ ensures pumpRunning ==> (env.higher(\old(env.getWaterLevel()), Low) ==> (env.higher(\old(env.getWaterLevel()), env.getWaterLevel())));
+      @*/
+	Unit timeShift() {
+		if (pumpRunning)
+			env.lowerWaterLevel();
+	}
+
+    /*@
+      @ ensures (countProblems() == 0) ==> pumpRunning;
+      @ */
+	Unit activatePump() {
+        if(countProblems() == 0)
+            pumpRunning = True;
+	}
+
+    /*@
+      @ ensures !pumpRunning;
+      @ */
+	Unit deactivatePump() {
+		pumpRunning = False;
+	}
+
+    //needed for remodelling
+    /*@
+      @ ensures \result >= 0;
+      @ */
+    Int countProblems(){
+        return 0;
+    }
+
+    /*@
+      @ ensures \result == env.isMethaneLevelCritical();
+      @ */
+	Bool isMethaneAlarm() {
+		return env.isMethaneLevelCritical();
+	}
+
+	Environment getEnv() {
+		return env;
+	}
+
+    // END OF CORE
+
+
+    // LOW 
+
+    /*@
+      @ ensures (systemActive && pumpRunning && isLowWaterLevel()) ==> !isRunning;
+      @ */
+    Unit low_timeShift(){
+        timeShift();
+        if (systemActive && pumpRunning && isLowWaterLevel()) {
+            deactivatePump();
+        }
+    }
+
+    /*@
+      @ ensures \result == !env.isLowWaterSensorDry();
+      @ */
+    Bool isLowWaterLevel() { // reused
+        return !env.isLowWaterSensorDry();
+    }
+    
+    // END OF LOW
+
+
+    // HIGH 
+
+    /*@
+      @ ensures \result == !env.isHighWaterSensorDry();
+      @ */
+    Bool isHighWaterLevel() { // reused
+        return !env.isHighWaterSensorDry();
+    }
+
+    /*@
+      @ ensures systemActive@l && !pumpRunning@l && isHighWaterLevel()@l
+      @           ==> ((countProblems()@l == 0) ==> pumpRunning);
+      @ */
+    Unit high_timeShift() {
+        l:timeShift();
+        if(systemActive && !pumpRunning && isHighWaterLevel())
+            activatePump();
+    }
+
+    // END OF HIGH
+
+    
+    // ALARM 
+
+    /*@
+      @ ensures (systemActive && pumpRunning && isMethaneAlarm()) ==> !pumpRunning;
+      @ */
+    Unit alarm_timeShift() {
+        if (systemActive && pumpRunning && isMethaneAlarm()) {
+            deactivatePump();
+        } else {
+            timeShift();
+        }
+    }
+
+    // END OF ALARM
+
+    // LOW_HIGH
+
+    /*@
+      @ ensures systemActive@l && !pumpRunning@l && isHighWaterLevel()@l
+      @           ==> ((countProblems()@l == 0) ==> pumpRunning);
+      @ */
+    Unit low_high_timeShift() {
+        l:low_timeShift();
+        if(systemActive && !pumpRunning && isHighWaterLevel())
+            activatePump();
+    }
+
+    // END OF LOW_HIGH
+
+
+    // LOW_ALARM
+
+    /*@
+      @ ensures (systemActive && pumpRunning && isMethaneAlarm()) ==> !pumpRunning;
+      @ */
+    Unit alarm_low_timeShift() {
+        if (systemActive && pumpRunning && isMethaneAlarm()) {
+            deactivatePump();
+        } else {
+            low_timeShift();
+        }
+    }
+
+    // END OF LOW_ALARM
+
+
+    // HIGH_ALARM
+
+    /*@
+      @ ensures (systemActive && pumpRunning && isMethaneAlarm()) ==> !pumpRunning;
+      @ */
+    Unit high_alarm_timeShift() {
+        if (systemActive && pumpRunning && isMethaneAlarm()) {
+            deactivatePump();
+        } else {
+            high_timeShift();
+        }
+    }
+
+    // END OF HIGH_ALARM
+
+
+
+    // LOW_HIGH_ALARM
+
+
+    /*@
+      @ ensures (systemActive && pumpRunning && isMethaneAlarm()) ==> !pumpRunning;
+      @ */
+    Unit low_high_alarm_timeShift() {
+        if (systemActive && pumpRunning && isMethaneAlarm()) {
+            deactivatePump();
+        } else {
+            low_high_timeShift();
+        }
+    }
+
+    // END OF LOW_HIGH_ALARM
+
+}
