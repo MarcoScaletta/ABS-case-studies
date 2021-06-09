@@ -47,13 +47,11 @@ class MinePump {
     }
 
 
-    // comment from here to try the expensive version of timeShift (expensive_timeShift)
 
-    //@ghost boolean checkAtL; //ghost variables used in cheaper_timeShift
+    //@ghost boolean checkAtL;
     
     /*@
-      @invariant \disjoint(\dl_env_fields,checkAtL); //invariant for ghost variable used in cheaper_timeShift
-      @*/
+      @invariant \disjoint(\dl_env_fields,checkAtL);
     
     /*@ 
       @ ensures checkAtL ==> pumpRunning;

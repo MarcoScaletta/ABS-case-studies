@@ -5,7 +5,7 @@ interface EnvironmentI {
 	
 	//@accessible \inv: \dl_env_fields;
 
-	//TO_BE_FINISHED
+
 
 	/*@ 
 	  @ public normal_behavior
