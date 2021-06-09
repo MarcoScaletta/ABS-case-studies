@@ -14,7 +14,6 @@ class MinePump {
 
 
     /*@
-      @ requires !pumpRunning;
       @ ensures !pumpRunning && !systemActive;
       @ */
     void stopSystem() {
