@@ -5,8 +5,8 @@ interface AccountI{
 
 	/*@
 	  @ public normal_behavior 
-	  @ ensures (getBalance() >= 0 ==> \result >= 0) 
-	  @      && (getBalance() <= 0 ==> \result <= 0) 
+	  @ ensures (this.getBalance() >= 0 ==> \result >= 0) 
+	  @      && (this.getBalance() <= 0 ==> \result <= 0) 
 	  @      && \result==calculateInterest();
 	  @ assignable \strictly_nothing;
 	  @ accessible \dl_account_fields;
@@ -51,13 +51,13 @@ final class Account implements AccountI{
 
 	//@invariant \subset(this.interest,\dl_account_fields) && \subset(this.balance, \dl_account_fields);
 
-	final static int INTEREST_RATE = 2;
+	final static int INTEREST_RATE = 2 / 36500;
 
 	int interest = 0; //added
 	int balance;
 
 	int calculateInterest() {
-		return this.balance * INTEREST_RATE / 36500;
+		return this.balance * INTEREST_RATE;
 	}
 
 	int getBalance() {

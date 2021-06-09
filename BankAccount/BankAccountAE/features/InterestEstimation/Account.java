@@ -38,14 +38,14 @@ class Account implements AccountI{
 
 	int interest;
 	int balance;
-	final static int INTEREST_RATE = 2;
+	final static int INTEREST_RATE = 2 / 36500;
 
 	/*@ pure @*/ int estimatedInterest(int daysLeft) {
 		return interest + daysLeft * calculateInterest();
 	}
 
 	int calculateInterest() {
-		return balance * INTEREST_RATE / 36500;
+		return balance * INTEREST_RATE;
 	}
 	
 	int getBalance() {
