@@ -22,7 +22,7 @@ delta DeltaLowWaterSensor {
 
     modifies interface EnvironmentI{
         /*@
-        @ ensures \result == (Low == this.getWaterLevel)
+        @ ensures \result == (Low == this.getWaterLevel())
         @ */
         adds boolean isLowWaterSensorDry ();
     }
