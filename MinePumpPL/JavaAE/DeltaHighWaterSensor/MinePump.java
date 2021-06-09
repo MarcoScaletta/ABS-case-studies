@@ -80,52 +80,6 @@ class MinePump {
           activatePump();
     }
 
-
-    //uncomment from here for the expensive specification of timeShift
-
-    // // invariants for ghost variables used in expensive_timeShift
-    // /*@
-    //   @invariant \disjoint(\dl_env_fields,systemActiveAtL)
-    //   @       && \disjoint(\dl_env_fields,pumpRunningAtL)
-    //   @       && \disjoint(\dl_env_fields,isHighWaterLevelAtL)
-    //   @       && \disjoint(\dl_env_fields,countProblemsAtL);
-    //   @
-    //   @*/
-
-    // // ghost variables used in expensive_timeShift
-
-    // //@ghost boolean systemActiveAtL;
-    // //@ghost boolean pumpRunningAtL;
-    // //@ghost boolean isHighWaterLevelAtL;
-    // //@ghost int countProblemsAtL;
-
-    // /*@ 
-    //   @ ensures (systemActiveAtL && !pumpRunningAtL && isHighWaterLevelAtL && countProblemsAtL ==0) ==> pumpRunning;//(checkAtL) ==> pumpRunning;
-    //   @ */
-    // void expensive_timeShift() { //expensive version 17.203
-          
-    //   /*@ae_constraint 
-    //       \disjoint(this.env,\dl_frame);
-    //   @*/
-    //   {;}
-
-    //   /*@
-    //   @ assignable \dl_frame;
-    //   @ accessible  \dl_footprint;
-    //   @ exceptional_behavior requires false;
-    //   @ break_behavior requires false;
-    //   @ continue_behavior requires false;
-    //   @ return_behavior requires false;
-    //   @ normal_behavior ensures \invariant_for(this);
-    //   @*/
-    //   \abstract_statement Original;
-    //   //@set systemActiveAtL = systemActive;
-    //   //@set pumpRunningAtL = pumpRunning;
-    //   //@set countProblemsAtL = countProblems();
-    //   //@set isHighWaterLevelAtL = isHighWaterLevel();
-    //   if(systemActive && !pumpRunning && isHighWaterLevel())
-    //       activatePump();
-    // }
 }
 
 
