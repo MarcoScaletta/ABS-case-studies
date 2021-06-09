@@ -5,7 +5,7 @@ interface AccountI{
 	  @ ensures \result == getBalance();
 	  @ assignable \strictly_nothing;
 	  @*/
-	int /*@ pure @*/ getBalance();
+	int getBalance();
 
 	
 	/*@
@@ -32,11 +32,6 @@ class Account implements AccountI {
 	}
 
 	
-	/*@ 
-	  @ public normal_behavior
-	  @ ensures \result == getBalance();
-	  @ assignable \strictly_nothing;
-	  @*/
 	int getBalance(){
 		return this.balance;
 	}
