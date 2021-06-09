@@ -58,7 +58,7 @@ class MinePump {
     /*@ 
       @ ensures checkAtL ==> pumpRunning;
       @ */
-    void cheaper_timeShift() { //cheap version, nodes 9.899
+    void timeShift() {
           
       /*@ae_constraint 
           \disjoint(this.env,\dl_frame);
