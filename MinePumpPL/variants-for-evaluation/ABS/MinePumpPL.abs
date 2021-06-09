@@ -27,6 +27,19 @@ interface EnvironmentI {
 
 	WaterLevel getWaterLevel();
 
+
+
+  /*@
+    @ ensures \result == (High != this.getWaterLevel())
+    @ */
+  boolean isHighWaterSensorDry();
+
+
+
+  /*@
+    @ ensures \result == (Low == this.getWaterLevel())
+    @ */
+  adds boolean isLowWaterSensorDry ();
 }
 
 
