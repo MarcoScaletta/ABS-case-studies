@@ -1,3 +1,0 @@
-The FO SPLs are remodeled in ABS with the DOP approach.
-Needed changes:
-- fields are unknown outside the object instances, therefore the getter are used.
