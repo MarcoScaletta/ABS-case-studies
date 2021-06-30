@@ -3,13 +3,18 @@ data WaterLevel = Low, Normal, High;
 
 interface EnvironmentI {
 
-	/*@
-	  @ ensures higher(\old(this.getWaterLevel()), Low) ==> (higher(\old(this.getWaterLevel()), this.getWaterLevel()));
+	/*@ 
+	  @ public normal_behavior
+	  @ ensures (\old(this.getWaterLevel()) == WaterLevel.high) ==> (this.getWaterLevel() == WaterLevel.normal) && 
+	  @ 	    (\old(this.getWaterLevel()) == WaterLevel.normal) ==> (this.getWaterLevel() == WaterLevel.low);
+	  @ assignable \dl_env_fields;
 	  @ */
 	Unit lowerWaterLevel();
 
-	/*@
-	  @ ensures higher(High, \old(this.getWaterLevel())) ==> (higher(this.getWaterLevel(), \old(this.getWaterLevel())))
+	/*@ 
+	  @ public normal_behavior
+	  @ ensures (\old(this.getWaterLevel()) == WaterLevel.low) ==> (this.getWaterLevel() == WaterLevel.normal) &&
+	  @ 	    (\old(this.getWaterLevel()) == WaterLevel.normal) ==> (this.getWaterLevel() == WaterLevel.high); 
 	  @ */
 	Unit waterRise();
 
@@ -19,11 +24,6 @@ interface EnvironmentI {
 	Unit changeMethaneLevel();
 
 	Bool isMethaneLevelCritical();
-
-	/*@
-	  @ ensures \result <==> (waterLevel1 != waterLevel2 && (waterLevel1 == High || waterLevel2 == Low));
-	  @ */
-	Bool higher(WaterLevel waterLevel1, WaterLevel waterLevel2);
 
 	WaterLevel getWaterLevel();
 
@@ -56,19 +56,6 @@ public class Environment implements EnvironmentI {
 	Bool isMethaneLevelCritical() {
 		return methaneLevelCritical;
 	}
-
-    Int diffWaterLevel(WaterLevel waterLevel1, WaterLevel waterLevel2){
-        if(waterLevel1 == waterLevel2)
-            return 0;
-        if(waterLevel1 == High || waterLevel2 == Low)
-            return 1;
-		return -1;
-    }
-
-	Bool higher(WaterLevel waterLevel1, WaterLevel waterLevel2){
-        diffWaterLevel(waterLevel1, waterLevel2) == 1;
-    }
-
 
 	WaterLevel getWaterLevel() {
 		return waterLevel;

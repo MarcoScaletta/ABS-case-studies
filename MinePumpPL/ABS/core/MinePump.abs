@@ -6,7 +6,10 @@ class MinePump (EnvironmentI env) {
 
     //remodelled
     /*@
-      @ ensures pumpRunning ==> (env.higher(\old(env.getWaterLevel()), Low) ==> (env.higher(\old(env.getWaterLevel()), env.getWaterLevel())));
+      @ public normal_behavior
+      @ ensures  (pumpRunning ==>
+      @          (\old(env.getWaterLevel()) == High) ==> (env.getWaterLevel() == Normal) 
+      @       && (\old(env.getWaterLevel()) == Normal) ==> (env.getWaterLevel() == Low));
       @*/
 	Unit timeShift() {
 		if (pumpRunning)
@@ -28,7 +31,7 @@ class MinePump (EnvironmentI env) {
 		pumpRunning = False;
 	}
 
-    //needed for remodelling
+    //needed for remodelling of activatePump
     /*@
       @ ensures \result >= 0;
       @ */
