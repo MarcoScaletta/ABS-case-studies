@@ -1,6 +1,4 @@
 class MinePump {
-    //to be finished
-    
 
     /*@
       @invariant \invariant_for(env) 
@@ -35,8 +33,6 @@ class MinePump {
     boolean isLowWaterLevel() {
         return !env.isLowWaterSensorDry();
     }
-
-
 
     //@ghost boolean checkAtL;
     

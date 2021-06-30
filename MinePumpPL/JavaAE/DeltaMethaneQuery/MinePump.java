@@ -1,8 +1,6 @@
 class MinePump {
-    // OK
     
     //@invariant \invariant_for(env);
-
 
     EnvironmentI env;
 

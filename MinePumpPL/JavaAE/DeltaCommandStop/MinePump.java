@@ -1,7 +1,5 @@
 class MinePump {
     
-    //OK
-
     boolean pumpRunning;
     boolean systemActive;
 
