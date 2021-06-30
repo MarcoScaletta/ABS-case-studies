@@ -3,10 +3,10 @@ delta DeltaLowWaterSensor {
     modifies MinePump {
 
         /*@
-          @ ensures (systemActive && pumpRunning && isLowWaterLevel()) ==> !isRunning;
+          @ ensures (\old(systemActive, l) && \old(pumpRunning, l) && \old(isLowWaterLevel(), l)) ==> !isRunning;
           @ */
         modifies Unit timeShift(){
-            original();
+            l:original();
             if (systemActive && pumpRunning && isLowWaterLevel()) {
 			    deactivatePump();
 		    }
