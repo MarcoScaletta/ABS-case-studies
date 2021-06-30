@@ -1,0 +1,8 @@
+productline SimpleSPL {
+    features Fee, WithdrawnTotal, FeeOverLimit, Log, LogBalance;
+    delta DFee when Fee;
+    delta DWithdrawnTotal when WithdrawnTotal;
+    delta DFeeOverLimit after DWithdrawnTotal when FeeOverLimit;
+    delta DLog when Log;
+    delta DLogBalance after DLog when LogBalance;
+}
