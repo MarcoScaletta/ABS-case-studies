@@ -1,4 +1,4 @@
-delta DWithdrawnTotal when WithdrawnTotal{
+delta DWithdrawnTotal {
     modifies class BankAccount {
         adds Int withdrawnTotal;
 

@@ -1,4 +1,4 @@
-delta DLog when Log{
+delta DLog {
     modifies class BankAccount {
         adds Int log;
 

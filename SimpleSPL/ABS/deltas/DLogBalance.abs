@@ -1,4 +1,4 @@
-delta DLog when Log{
+delta DLogBalance {
     modifies class BankAccount {
 
         //@ensures (\old(balance, l) >= 0) ==> (log == \old(log, l) + 3) && (x < 0) ==> (log == \old(log) + 4);

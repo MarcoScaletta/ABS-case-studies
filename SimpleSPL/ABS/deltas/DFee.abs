@@ -1,4 +1,4 @@
-delta DFee when Fee{
+delta DFee {
     modifies class BankAccount {
         adds Int fee;
 

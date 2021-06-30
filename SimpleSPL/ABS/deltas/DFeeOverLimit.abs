@@ -1,4 +1,4 @@
-delta DFeeOverLimit after DWithdrawnTotal when FeeOverLimit {
+delta DFeeOverLimit {
     modifies class BankAccount {
         adds Int feeOverLimit;
         adds Int limit;
