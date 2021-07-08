@@ -39,7 +39,9 @@ interface EnvironmentI {
   /*@
     @ ensures \result == (Low == this.getWaterLevel())
     @ */
-  adds boolean isLowWaterSensorDry ();
+  boolean isLowWaterSensorDry ();
+
+    Bool isEmergency();
 }
 
 
@@ -99,10 +101,10 @@ class MinePump (EnvironmentI env) {
     // LOW 
 
     /*@
-      @ ensures (systemActive && pumpRunning && isLowWaterLevel()) ==> !isRunning;
+      @ ensures (\old(systemActive, l) && \old(pumpRunning,l) && \old(isLowWaterLevel(),l)) ==> !pumpRunning;
       @ */
     Unit low_timeShift(){
-        timeShift();
+        l: timeShift();
         if (systemActive && pumpRunning && isLowWaterLevel()) {
             deactivatePump();
         }
@@ -219,4 +221,130 @@ class MinePump (EnvironmentI env) {
 
     // END OF LOW_HIGH_ALARM
 
+
+    // EMERGENCY
+    
+    Bool isEmergency(){
+        return env.isEmergency();
+    }
+    
+    /*@
+      @ ensures (\old(systemActive, l) && \old(pumpRunning,l) && \old(isEmergency(),l)) ==> !pumpRunning;
+      @ */
+    Unit emergency_timeShift(){
+        l: timeShift();
+        if(systemActive && pumpRunning && isEmergency())
+            deactivatePump();
+    }
+
+    // END OF EMERGENCY
+
+
+
+    // LOW_EMERGENCY
+
+    /*@
+      @ ensures (\old(systemActive, l) && \old(pumpRunning,l) && \old(isEmergency(),l)) ==> !pumpRunning;
+      @ */
+    Unit low_emergency_timeShift(){
+        l: low_timeShift();
+        if(systemActive && pumpRunning && isEmergency())
+            deactivatePump();
+    }
+
+    // END OF LOW_EMERGENCY
+
+
+    // HIGH_EMERGENCY
+
+    /*@
+      @ ensures (\old(systemActive, l) && \old(pumpRunning,l) && \old(isEmergency(),l)) ==> !pumpRunning;
+      @ */
+    Unit high_emergency_timeShift(){
+
+        l: high_timeShift();
+        if(systemActive && pumpRunning && isEmergency())
+            deactivatePump();
+
+    }
+
+    // END OF HIGH_EMERGENCY
+
+
+    // ALARM_EMERGENCY
+
+    /*@
+      @ ensures (\old(systemActive, l) && \old(pumpRunning,l) && \old(isEmergency(),l)) ==> !pumpRunning;
+      @ */
+    Unit alarm_emergency_timeShift(){
+
+        l: alarm_timeShift();
+        if(systemActive && pumpRunning && isEmergency())
+            deactivatePump();
+        
+    }
+
+    // END OF ALARM_EMERGENCY
+
+    // LOW_HIGH_EMERGENCY
+
+    /*@
+      @ ensures (\old(systemActive, l) && \old(pumpRunning,l) && \old(isEmergency(),l)) ==> !pumpRunning;
+      @ */
+    Unit low_high_emergency_timeShift(){
+
+        l: low_high_timeShift();
+        if(systemActive && pumpRunning && isEmergency())
+            deactivatePump();
+
+    }
+
+    // END OF LOW_HIGH_EMERGENCY
+
+
+
+    // LOW_ALARM_EMERGENCY
+
+    /*@
+      @ ensures (\old(systemActive, l) && \old(pumpRunning,l) && \old(isEmergency(),l)) ==> !pumpRunning;
+      @ */
+    Unit low_alarm_emergency_timeShift(){
+
+        l: low_alarm_timeShift();
+        if(systemActive && pumpRunning && isEmergency())
+            deactivatePump();
+    }
+
+    // END OF LOW_ALARM_EMERGENCY
+
+
+
+    // HIGH_ALARM_EMERGENCY
+
+    
+    /*@
+      @ ensures (\old(systemActive, l) && \old(pumpRunning,l) && \old(isEmergency(),l)) ==> !pumpRunning;
+      @ */
+    Unit high_alarm_emergency_timeShift(){
+        l: high_alarm_timeShift();
+        if(systemActive && pumpRunning && isEmergency())
+            deactivatePump();
+    }
+
+    // END OF HIGH_ALARM_EMERGENCY
+
+
+    // LOW_HIGH_ALARM_EMERGENCY
+
+
+    /*@
+      @ ensures (\old(systemActive, l) && \old(pumpRunning,l) && \old(isEmergency(),l)) ==> !pumpRunning;
+      @ */
+    Unit low_high_alarm_emergency_timeShift(){
+        l: low_high_alarm_timeShift();
+        if(systemActive && pumpRunning && isEmergency())
+            deactivatePump();
+    }
+
+    // END OF LOW_HIGH_ALARM_EMERGENCY
 }

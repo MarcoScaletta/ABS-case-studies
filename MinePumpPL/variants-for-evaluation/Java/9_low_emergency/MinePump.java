@@ -1,20 +1,23 @@
 class MinePump {
 
-    //CORE
 
-  //@invariant \invariant_for(env) && \disjoint(\dl_env_fields, pumpRunning) && \disjoint(\dl_env_fields, systemActive) && \disjoint(\dl_env_fields, env);
+    
 
-	boolean pumpRunning = false;
+    /*@
+      @invariant \invariant_for(env) 
+      @       && \disjoint(\dl_env_fields,systemActive) 
+      @       && \disjoint(\dl_env_fields,pumpRunning) 
+      @       && \disjoint(\dl_env_fields,env);
+      @
+      @*/
 
-	boolean systemActive = true;
 
-	EnvironmentI env;
+    boolean systemActive;
+    boolean pumpRunning;
+    EnvironmentI env;
 
-	public MinePump(EnvironmentI env) {
-		this.env = env;
-	}
 
-    //remodelled
+
     /*@
       @ public normal_behavior
       @ ensures  (pumpRunning ==>
@@ -28,45 +31,14 @@ class MinePump {
 
     /*@
       @ public normal_behavior
-      @ ensures ((this.countProblems() == 0) ==> pumpRunning);
-      @ */
-	void activatePump() {
-        if(countProblems() == 0)
-            pumpRunning = true;
-	}
-
-    /*@
-      @ public normal_behavior
       @ ensures !pumpRunning;
+      @ assignable pumpRunning;
       @ */
 	void deactivatePump() {
-		pumpRunning = false;
-	}
-
-    //needed for remodelling
-    /*@
-      @ public normal_behavior
-      @ ensures \result >= 0 && \result == countProblems();
-      @ assignable \strictly_nothing;
-      @ */
-    int countProblems(){
-        return 0;
-    }
-
-    /*@
-      @ public normal_behavior
-      @ ensures \result == env.isMethaneLevelCritical();
-      @ */
-	boolean isMethaneAlarm() {
-		return env.isMethaneLevelCritical();
+        pumpRunning = false;
 	}
 
 
-    //END CORE
-
-
-
-    //LOW
     /*@
       @ public normal_behavior
       @ ensures \result == !env.isLowWaterSensorDry() && \result == isLowWaterLevel();
@@ -76,88 +48,59 @@ class MinePump {
         return !env.isLowWaterSensorDry();
     }
 
-    //@ghost boolean checkAtL; //ghost variables used in cheaper_timeShift
+
+
+    //@ghost boolean checkAtL;
     
     /*@
-      @invariant \disjoint(\dl_env_fields,checkAtL); //invariant for ghost variable used in cheaper_timeShift
+      @invariant \disjoint(\dl_env_fields,checkAtL);
       @*/
     
     /*@ 
       @ ensures checkAtL ==> !pumpRunning;
       @ */
-    void low_timeShift() { //cheap version, nodes 9.899
-        timeShift();    
+    void low_timeShift() {
+        timeShift();
         //@set checkAtL = systemActive && pumpRunning && isLowWaterLevel();
         if(systemActive && pumpRunning && isLowWaterLevel())
             deactivatePump();
     }
 
-    //END LOW
 
-
-
-    //HIGH
     /*@
       @ public normal_behavior
-      @ ensures \result == !env.isHighWaterSensorDry() && \result == isHighWaterLevel();
+      @ ensures \result == env.isEmergency() && \result == isEmergency();
       @ assignable \strictly_nothing;
       @ */
-    boolean isHighWaterLevel() {
-        return !env.isHighWaterSensorDry();
+    boolean isEmergency() {
+        return env.isEmergency();
     }
+
+
 
     /*@
       @invariant \disjoint(\dl_env_fields,checkAtL);
       @*/
-      
-    /*@ 
-      @ ensures checkAtL ==> pumpRunning;
-      @ */
-    void high_timeShift() {
-        timeShift();
-
-        //@set checkAtL = systemActive && !pumpRunning && countProblems() == 0 && isHighWaterLevel();
-        if(systemActive && !pumpRunning && isHighWaterLevel())
-            activatePump();
-    }
-
-    //END HIGH
     
-    // ALARM
-
-    /*@
-      @ ensures (\old(systemActive) && \old(pumpRunning) && \old(this.isMethaneAlarm())) ==> !pumpRunning;
-      @*/
-    void alarm_timeShift() {
-        if (systemActive && pumpRunning && this.isMethaneAlarm()) {
+    /*@ 
+      @ ensures checkAtL ==> !pumpRunning;
+      @ */
+    void low_emergency_timeShift() {
+        low_timeShift();
+        //@set checkAtL = systemActive && pumpRunning && isEmergency();
+        if(systemActive && pumpRunning && isEmergency())
             deactivatePump();
-        } else {
-            timeShift();
-        }
     }
-
-    // END ALARM
-
-    // LOW_HIGH
-    // END
-
-    // LOW_ALARM
-    // END
-
-    // HIGH_ALARM
-    // END 
-
-    // LOW_HIGH_ALARM
-    // END 
-
 }
+
+
+
+
 
 interface EnvironmentI {
 
 	
 	//@accessible \inv: \dl_env_fields;
-
-	//TO_BE_FINISHED
 
 	/*@ 
 	  @ public normal_behavior
@@ -195,8 +138,8 @@ interface EnvironmentI {
 	  @ assignable \strictly_nothing;
 	  @ */
 	int getWaterLevel();
-    
-    // LOW
+
+	// LOW
     /*@
       @ public normal_behavior
       @ ensures \result == isLowWaterSensorDry();
@@ -204,41 +147,21 @@ interface EnvironmentI {
       @ accessible \dl_env_fields;
       @ */
     boolean isLowWaterSensorDry();
+	//END LOW
 
-    // END LOW
 
-
-    //HIGH
-
+	// EMERGENCY
     /*@
       @ public normal_behavior
-      @ ensures \result == isHighWaterSensorDry();
+      @ ensures \result == isEmergency();
       @ assignable \strictly_nothing;
       @ accessible \dl_env_fields;
       @ */
-    boolean isHighWaterSensorDry();
-
-    //END HIGH
-    
-    // ALARM
-    // END ALARM
-
-    // LOW_HIGH
-    // END
-
-    // LOW_ALARM
-    // END
-
-    // HIGH_ALARM
-    // END 
-
-    // LOW_HIGH_ALARM
-    // END 
+    boolean isEmergency();
+	//END EMERGENCY  
 
 }
 
-
-//CORE
 interface WaterLevel {
 
    public static final int low = 0;
@@ -246,4 +169,3 @@ interface WaterLevel {
    public static final int high = 2;
 
 }
-//END CORE

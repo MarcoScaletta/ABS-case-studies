@@ -1,0 +1,28 @@
+delta DeltaEmergency{
+
+    modifies MinePump {
+        
+        //@ensures \result == env.isEmergency(); 
+        adds Bool isEmergency(){
+            return env.isEmergency();
+        }
+
+
+        /*@
+          @ ensures (\old(systemActive, l) && \old(pumpRunning,l) && \old(isEmergency(),l)) ==> !pumpRunning;
+          @*/
+        modifies Unit timeShift() {
+            l: original();
+            if(systemActive && pumpRunning && isEmergency())
+                deactivatePump();
+
+        }
+
+    }
+
+    interface EnvironmentI {
+
+        adds Bool isEmergency();
+
+    }
+}
