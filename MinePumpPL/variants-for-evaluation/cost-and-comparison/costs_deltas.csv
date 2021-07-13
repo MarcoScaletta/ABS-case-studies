@@ -1,0 +1,8 @@
+Delta, Method, Nodes 
+Start, MinePump.startSystem, 95
+Stop, MinePump.stopSystem, 394
+High, MinePump.timeShift, 9914
+Low, MinePump.timeShift, 9558
+Alarm, MinePump.timeShift, 1602
+Query, MinePump.countProblems, 668
+Emergency, MinePump.timeShift, 7682

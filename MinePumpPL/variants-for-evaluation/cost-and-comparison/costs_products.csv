@@ -1,0 +1,16 @@
+Product, Method, Nodes 
+Low, MinePump.timeShift, 2233
+High, MinePump.timeShift, 2472
+Alarm, MinePump.timeShift, 1092
+Low+High, MinePump.timeShift, 2517
+Low+Alarm, MinePump.timeShift, 1860
+High+Alarm, MinePump.timeShift, 1869
+Low+High+Alarm, MinePump.timeShift, 1883
+Emergency, MinePump.timeShift, 2233
+Low+Emergency, MinePump.timeShift, 2112
+High+Emergency, MinePump.timeShift, 2095
+Alarm+Emergency, MinePump.timeShift, 2665
+Low+High+Emergency, MinePump.timeShift, 2096
+Low+Alarm+Emergency, MinePump.timeShift, 2684
+High+Alarm+Emergency, MinePump.timeShift, 2684
+Low+High+Alarm+Emergency, MinePump.timeShift, 2702
