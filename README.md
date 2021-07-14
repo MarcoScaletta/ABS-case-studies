@@ -27,27 +27,33 @@ Given a SPL `<SPL-name>` it is necessary open a terminal open in `<PATH>/`:
 #### Loading files
 
 ##### Loading core files
-To load the proofs for the core of `<SPL-name>` run the following command in the terminal 
+To load the proofs for the core of `<SPL-name>` run the following command in the terminal
+
  ```$ java -jar key-2.7-exe.jar <SPL-name>/JavaAE/core/load.key```
 
-*Example 1*
+*Example*
 To load the proofs for the core of `MinePumpPL` run the command:
- ```$ java -jar key-2.7-exe.jar MinePumpPL/JavaAE/core/load.key```
+
+```$ java -jar key-2.7-exe.jar MinePumpPL/JavaAE/core/load.key```
 
 ##### Loading deltas files
 To load the proofs for delta `<delta-name>` of `<SPL-name>` run the command: 
- ```$ java -jar key-2.7-exe.jar <SPL-name>/JavaAE/deltas/<delta-name>/load.key```
 
-*Example 2*
+```$ java -jar key-2.7-exe.jar <SPL-name>/JavaAE/deltas/<delta-name>/load.key```
+
+*Example*
 To load the proofs for delta `DeltaLowWaterSensor` of `MinePumpPL` run the command:
- ```$ java -jar key-2.7-exe.jar MinePumpPL/JavaAE/deltas/DeltaLowWaterSensor/load.key```
+
+```$ java -jar key-2.7-exe.jar MinePumpPL/JavaAE/deltas/DeltaLowWaterSensor/load.key```
 
 ##### Loading product-variants files
 To load the proofs for a product variant `<n_feature-selection>` for `MinePumpPL` run the command:
- ```$ java -jar key-2.7-exe.jar MinePumpPL/variants-for-evaluation/Java/<n_feature-selection>/load.key```
 
-*Example 3*
+```$ java -jar key-2.7-exe.jar MinePumpPL/variants-for-evaluation/Java/<n_feature-selection>/load.key```
+
+*Example*
 To load the proofs for the product variant `7_low_high_alarm` for `MinePumpPL` run the command:
+
  ```$ java -jar key-2.7-exe.jar MinePumpPL/variants-for-evaluation/Java/7_low_high_alarm/load.key```
 
 #### Selecting proofs
@@ -61,6 +67,9 @@ On the left side it is possible possible to select the contract to prove and sta
 
 ##### Proving Java+AE
 To prove the main contract of a method that contains an abstract statement it is necessary select the first contract of the list for the method called `JML operation contract 0`.
+
+##### Proving Java without AE
+If AE is not used in a method there is exactly one contract to be proved for that method.
 
 #### Start proof search
 Once the proof is selected it is possible to start the search by pressing the green button:
