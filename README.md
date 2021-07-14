@@ -22,7 +22,7 @@ The files of the product-based approach for a subset (only method `timeShift` is
 We refer to the absolute path of this folder as `<PATH>/`.
 
 ### Loading the proofs
-Given a SPL `<SPL-name>` it is necessary open a terminal open `<PATH>/`:
+Given a SPL `<SPL-name>` it is necessary open a terminal open in `<PATH>/`:
 
 #### Loading files
 
@@ -30,7 +30,7 @@ Given a SPL `<SPL-name>` it is necessary open a terminal open `<PATH>/`:
 To load the proofs for the core of `<SPL-name>` run the following command in the terminal 
  ```$ java -jar key-2.7-exe.jar <SPL-name>/JavaAE/core/load.key```
 
-*Example*
+*Example 1*
 To load the proofs for the core of `MinePumpPL` run the command:
  ```$ java -jar key-2.7-exe.jar MinePumpPL/JavaAE/core/load.key```
 
@@ -38,18 +38,40 @@ To load the proofs for the core of `MinePumpPL` run the command:
 To load the proofs for delta `<delta-name>` of `<SPL-name>` run the command: 
  ```$ java -jar key-2.7-exe.jar <SPL-name>/JavaAE/deltas/<delta-name>/load.key```
 
-*Example*
-To load the proofs for delta `DeltaHighWaterSensor` of `MinePumpPL` run the command:
- ```$ java -jar key-2.7-exe.jar MinePumpPL/JavaAE/deltas/DeltaHighWaterSensor/load.key```
+*Example 2*
+To load the proofs for delta `DeltaLowWaterSensor` of `MinePumpPL` run the command:
+ ```$ java -jar key-2.7-exe.jar MinePumpPL/JavaAE/deltas/DeltaLowWaterSensor/load.key```
 
 ##### Loading product-variants files
 To load the proofs for a product variant `<n_feature-selection>` for `MinePumpPL` run the command:
  ```$ java -jar key-2.7-exe.jar MinePumpPL/variants-for-evaluation/Java/<n_feature-selection>/load.key```
 
-*Example*
+*Example 3*
 To load the proofs for the product variant `7_low_high_alarm` for `MinePumpPL` run the command:
  ```$ java -jar key-2.7-exe.jar MinePumpPL/variants-for-evaluation/Java/7_low_high_alarm/load.key```
 
-
 #### Selecting proofs
 After the execution of each of the previous commands the proof manager should show up as in the following picture:
+
+| ![Choosing contract](choose-contract.png) |
+| :--: |
+|*After selecting load.key for DeltaLowWaterSensor of MinePumpPL*|
+
+On the left side it is possible possible to select the contract to prove and start the proof clicking on "Start Proof".
+
+##### Proving Java+AE
+To prove the main contract of a method that contains an abstract statement it is necessary select the first contract of the list for the method called `JML operation contract 0`.
+
+#### Start proof search
+Once the proof is selected it is possible to start the search by pressing the green button:
+| ![Before proof search](before-proof-search.png) |
+| :--: |
+|*Before the proof search for `timeShift` for DeltaLowWaterSensor*|
+
+#### The result
+At the end of the proof search a windows with the result is displayed:
+| ![Before proof search](proved-contract.png) |
+| :--: |
+|*Result of the proof search for `timeShift` for DeltaLowWaterSensor*|
+
+We are interested into the size of the proof, i.e., the amount of nodes of the proof tree.
