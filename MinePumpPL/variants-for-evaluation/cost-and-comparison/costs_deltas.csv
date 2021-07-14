@@ -1,8 +1,8 @@
 Delta, Method, Nodes 
-Start, MinePump.startSystem, 95
-Stop, MinePump.stopSystem, 394
-High, MinePump.timeShift, 9914
-Low, MinePump.timeShift, 9558
-Alarm, MinePump.timeShift, 1602
-Query, MinePump.countProblems, 668
-Emergency, MinePump.timeShift, 7682
+DeltaCommandStart, MinePump.startSystem, 95
+DeltaCommandStop, MinePump.stopSystem, 394
+DeltaHighWaterSensor, MinePump.timeShift, 9919
+DeltaLowWaterSensor, MinePump.timeShift, 9558
+DeltaMethaneAlarm, MinePump.timeShift, 1602
+DeltaMethaneQuery, MinePump.countProblems, 668
+DeltaEmergency, MinePump.timeShift, 7682
