@@ -1,4 +1,4 @@
-## Delta-based Verification of Software Product Families (Case studies)
+## Delta-based Verification of Software Families (Case studies)
 
 ## Requirements
 Java Version: 8
@@ -10,7 +10,9 @@ This project contains the case studies for three SPLs:
 2. `MinePumpPL/`
 3. `SimplePL/`
 
-The structure of these folders is similar: they contain the ABS code (`ABS/` folder) and the Java+JML code (`JavaAE/` folder). The former is not compiled and it is used as outline for the Java implementation. The latter is a remodelling of the former and each contract can be fully automatically proved by *KeY* using the .jar file `key-2.7-exe.jar`.
+The structure of these folders is similar: they contain the ABS code (`ABS/` folder) and the Java+JML code (`JavaAE/` folder). 
+
+The ABS code itself is not compiled and serves as an outline for the Java implementation. The Java version is used to showcase our approach and each of its contracts can be proven fully automatically by *KeY*. The used Refinity+KeY  version is included as the .jar file `key-2.7-exe.jar`.
 
 Both `ABS/` and `JavaAE/` are structured following the delta-oriented approach with two main folders `core/` and `deltas/`, containing the code for the code and each deltas, respectively.
 
@@ -22,7 +24,7 @@ The files of the product-based approach for a subset (only method `timeShift` is
 We refer to the absolute path of this folder as `<PATH>/`.
 
 ### Loading the proofs
-Given a SPL `<SPL-name>` it is necessary open a terminal open in `<PATH>/`:
+Given an SPL `<SPL-name>` it is necessary open a terminal open in `<PATH>/`:
 
 #### Loading files
 
@@ -73,9 +75,9 @@ If AE is not used in a method there is exactly one contract to be proved for tha
 
 #### Start proof search
 Once the proof is selected it is possible to start the search by pressing the green button:
-| ![Before proof search](before-proof-search.png) |
-| :--: |
-|*Before the proof search for `timeShift` for DeltaLowWaterSensor*|
+|       ![Before proof search](before-proof-search.png)        |
+| :----------------------------------------------------------: |
+| *Before the proof search for `timeShift` for DeltaLowWaterSensor* |
 
 #### The result
 At the end of the proof search a windows with the result is displayed:
