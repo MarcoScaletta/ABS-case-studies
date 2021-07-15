@@ -6,9 +6,9 @@ Low+High, MinePump.timeShift, 2517
 Low+Alarm, MinePump.timeShift, 1860
 High+Alarm, MinePump.timeShift, 1869
 Low+High+Alarm, MinePump.timeShift, 1883
-Emergency, MinePump.timeShift, 2233
-Low+Emergency, MinePump.timeShift, 2112
-High+Emergency, MinePump.timeShift, 2095
+Emergency, MinePump.timeShift, 2256
+Low+Emergency, MinePump.timeShift, 2017
+High+Emergency, MinePump.timeShift, 2003
 Alarm+Emergency, MinePump.timeShift, 2665
 Low+High+Emergency, MinePump.timeShift, 2096
 Low+Alarm+Emergency, MinePump.timeShift, 2684
