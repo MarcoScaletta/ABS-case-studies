@@ -49,7 +49,7 @@ To load the proofs for delta `DeltaLowWaterSensor` of `MinePumpPL` run the comma
 ```$ java -jar key-2.7-exe.jar MinePumpPL/JavaAE/deltas/DeltaLowWaterSensor/load.key```
 
 ##### Loading product-variants files
-To load the proofs for a product variant `<n_feature-selection>` for `MinePumpPL` run the command:
+To load the proofs for a product variant `<n_feature-selection>` for `MinePumpPL` run the command (where `n` is used as numeration of the products):
 
 ```$ java -jar key-2.7-exe.jar MinePumpPL/variants-for-evaluation/Java/<n_feature-selection>/load.key```
 
@@ -86,3 +86,17 @@ At the end of the proof search a windows with the result is displayed:
 |*Result of the proof search for `timeShift` for DeltaLowWaterSensor*|
 
 We are interested into the size of the proof, i.e., the amount of nodes of the proof tree.
+
+### Evaluation
+We compared the delta-based results with a product-based approach.
+For the evaluation, after loading the proofs for a product variant `<n_feature-selection>`, the method to be proven is `<feature-selection>_timeshift`.
+
+*Example*
+
+1. As shown above to load the proofs for the product variant `7_low_high_alarm` for `MinePumpPL` run the command:
+
+    ```$ java -jar key-2.7-exe.jar MinePumpPL/variants-for-evaluation/Java/7_low_high_alarm/load.key```
+2. Select the method `low_high_alarm_timeshift` as below
+    | ![Select method low_high_alarm_timeShift](select-product-evaluation.png) |
+    | :--: |
+    |*Selecting version of method `timeShift` for product `low_high_alarm`*|
