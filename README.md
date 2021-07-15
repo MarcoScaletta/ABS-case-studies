@@ -20,6 +20,8 @@ For both BankAccountSPL and MinePumpPL is also available the original source cod
 
 The files of the product-based approach for a subset (only method `timeShift` is considered) of `MinePumpPL` are available in its subfolder `variants-for-evaluation/`, with three subfolders `ABS/` (uncompiled ABS code), `Java/` that contains the code of the product variants, and `cost-and-comparison/` containing the results of the experiments.
 
+An additional folder `transformation_rules` in the main directory contains four provable transformation rules.
+
 ## How to reproduce the results
 We refer to the absolute path of this folder as `<PATH>/`.
 
@@ -61,7 +63,7 @@ To load the proofs for the product variant `7_low_high_alarm` for `MinePumpPL` r
 #### Selecting proofs
 After the execution of each of the previous commands the proof manager should show up as in the following picture:
 
-| ![Choosing contract](choose-contract.png) |
+| ![Choosing contract](images/choose-contract.png) |
 | :--: |
 |*After selecting load.key for DeltaLowWaterSensor of MinePumpPL*|
 
@@ -75,13 +77,13 @@ If AE is not used in a method there is exactly one contract to be proved for tha
 
 #### Start proof search
 Once the proof is selected it is possible to start the search by pressing the green button:
-|       ![Before proof search](before-proof-search.png)        |
+|       ![Before proof search](images/before-proof-search.png)        |
 | :----------------------------------------------------------: |
 | *Before the proof search for `timeShift` for DeltaLowWaterSensor* |
 
 #### The result
 At the end of the proof search a windows with the result is displayed:
-| ![Before proof search](proved-contract.png) |
+| ![Before proof search](images/proved-contract.png) |
 | :--: |
 |*Result of the proof search for `timeShift` for DeltaLowWaterSensor*|
 
@@ -97,11 +99,22 @@ For the evaluation, after loading the proofs for a product variant `<n_feature-s
 
     ```$ java -jar key-2.7-exe.jar MinePumpPL/variants-for-evaluation/Java/7_low_high_alarm/load.key```
 2. Select the method `low_high_alarm_timeshift` as below
-    | ![Select method low_high_alarm_timeShift](select-product-evaluation.png) |
+    | ![Select method low_high_alarm_timeShift](images/select-product-evaluation.png) |
     | :--: |
     |*Selecting version of method `timeShift` for product `low_high_alarm`*|
 
 
+### Proving transformation rules
+
+1. Open *KeY*, then open *REFINITY*:
+    | ![Open REFINITY](images/open-refinity.png) |
+    | :--: |
+2. Select the `.aer` file containing the transformation rule you want to verify:
+    | ![Select file](images/load-file.png) |
+    | :--: |
+3. Start the verification:
+    | ![Start verification](images/start-verification-rules.png) |
+    | :--: |
 
 ### Troubleshooting
 * If you cannot start KeY or KeY aborts with an exception, it might be the case that you had another KeY version already installed. Please try the following:
