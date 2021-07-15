@@ -77,7 +77,7 @@ If AE is not used in a method there is exactly one contract to be proved for tha
 
 #### Start proof search
 Once the proof is selected it is possible to start the search by pressing the green button:
-| <img src=images/before-proof-search.png width=500> |
+| <img src=images/before-proof-search.png> |
 | :----------------------------------------------------------: |
 | *Before the proof search for `timeShift` for DeltaLowWaterSensor* |
 
@@ -99,14 +99,14 @@ For the evaluation, after loading the proofs for a product variant `<n_feature-s
 
     ```$ java -jar key-2.7-exe.jar MinePumpPL/variants-for-evaluation/Java/7_low_high_alarm/load.key```
 2. Select the method `low_high_alarm_timeshift` as below
-    | <img src=images/select-product-evaluation.png width=500> |
+    | <img src=images/select-product-evaluation.png> |
     | :--: |
     |*Selecting version of method `timeShift` for product `low_high_alarm`*|
 
 
 ### Proving transformation rules
 
-1. Open *KeY*, then open *REFINITY*:
+1. Open KeY, then open REFINITY:
     | ![Open REFINITY](images/open-refinity.png) |
     | :--: |
 
@@ -118,6 +118,13 @@ For the evaluation, after loading the proofs for a product variant `<n_feature-s
 
 3. Start the verification:
     | ![Start verification](images/start-verification-rules.png) |
+    | :--: |
+
+
+The rule *Consolidate Duplicate Conditional Fragments Extract Prefix* is available in KeY:
+* `File>Load Example>Abstract Execution>Consolidate Duplicate Conditional Fragments>Extract Prefix` (as below)
+
+    | <img src=images/extract-prefix.png width=500> |
     | :--: |
 
 ### Troubleshooting
