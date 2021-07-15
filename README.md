@@ -1,4 +1,4 @@
-## Delta-based Verification of Software Families (Case studies)
+## Delta-based Verification of Software Product Families (Case studies)
 
 ## Requirements
 Java Version: 8
