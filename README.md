@@ -100,3 +100,11 @@ For the evaluation, after loading the proofs for a product variant `<n_feature-s
     | ![Select method low_high_alarm_timeShift](select-product-evaluation.png) |
     | :--: |
     |*Selecting version of method `timeShift` for product `low_high_alarm`*|
+
+
+
+### Troubleshooting
+* If you cannot start KeY or KeY aborts with an exception, it might be the case that you had another KeY version already installed. Please try the following:
+1. Go into your home directory
+2. Check whether there is folder `.key`
+3. Rename or remove this folder
