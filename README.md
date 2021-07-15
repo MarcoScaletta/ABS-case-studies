@@ -63,7 +63,7 @@ To load the proofs for the product variant `7_low_high_alarm` for `MinePumpPL` r
 #### Selecting proofs
 After the execution of each of the previous commands the proof manager should show up as in the following picture:
 
-| ![Choosing contract](images/choose-contract.png) |
+| <img src=images/choose-contract.png width=500> |
 | :--: |
 |*After selecting load.key for DeltaLowWaterSensor of MinePumpPL*|
 
@@ -77,13 +77,13 @@ If AE is not used in a method there is exactly one contract to be proved for tha
 
 #### Start proof search
 Once the proof is selected it is possible to start the search by pressing the green button:
-|       ![Before proof search](images/before-proof-search.png)        |
+| <img src=images/before-proof-search.png width=500> |
 | :----------------------------------------------------------: |
 | *Before the proof search for `timeShift` for DeltaLowWaterSensor* |
 
 #### The result
 At the end of the proof search a windows with the result is displayed:
-| ![Before proof search](images/proved-contract.png) |
+| <img src=images/proved-contract.png width=300> |
 | :--: |
 |*Result of the proof search for `timeShift` for DeltaLowWaterSensor*|
 
@@ -99,7 +99,7 @@ For the evaluation, after loading the proofs for a product variant `<n_feature-s
 
     ```$ java -jar key-2.7-exe.jar MinePumpPL/variants-for-evaluation/Java/7_low_high_alarm/load.key```
 2. Select the method `low_high_alarm_timeshift` as below
-    | ![Select method low_high_alarm_timeShift](images/select-product-evaluation.png) |
+    | <img src=images/select-product-evaluation.png width=500> |
     | :--: |
     |*Selecting version of method `timeShift` for product `low_high_alarm`*|
 
@@ -109,9 +109,13 @@ For the evaluation, after loading the proofs for a product variant `<n_feature-s
 1. Open *KeY*, then open *REFINITY*:
     | ![Open REFINITY](images/open-refinity.png) |
     | :--: |
+
+
 2. Select the `.aer` file containing the transformation rule you want to verify:
     | ![Select file](images/load-file.png) |
     | :--: |
+
+
 3. Start the verification:
     | ![Start verification](images/start-verification-rules.png) |
     | :--: |
