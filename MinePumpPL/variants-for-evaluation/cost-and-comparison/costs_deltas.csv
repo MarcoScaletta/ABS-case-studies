@@ -2,10 +2,10 @@ Delta, Method, Nodes, added/modified, AE
 DeltaCommandStart, MinePump.startSystem, 95, added, no
 DeltaCommandStop, MinePump.stopSystem, 394,added, no
 DeltaHighWaterSensor, MinePump.isHighWaterLevel, 297, add, no
-DeltaHighWaterSensor, MinePump.timeShift, 9919, modified, yes
+DeltaHighWaterSensor, MinePump.timeShift, 6254, modified, yes
 DeltaLowWaterSensor, MinePump.isLowWaterLevel, 297, add, no
-DeltaLowWaterSensor, MinePump.timeShift, 9558, modified, yes
-DeltaMethaneAlarm, MinePump.timeShift, 1681, modified, yes
+DeltaLowWaterSensor, MinePump.timeShift, 5772, modified, yes
+DeltaMethaneAlarm, MinePump.timeShift, 1689, modified, yes
 DeltaMethaneQuery, MinePump.countProblems, 668, modified, no
-DeltaEmergency, MinePump.timeShift, 7682, modified, yes
+DeltaEmergency, MinePump.timeShift, 4598, modified, yes
 DeltaEmergency, MinePump.isEmergency, 266, added, no
