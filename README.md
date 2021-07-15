@@ -16,11 +16,11 @@ The ABS code itself is not compiled and serves as an outline for the Java implem
 
 Both `ABS/` and `JavaAE/` are structured following the delta-oriented approach with two main folders `core/` and `deltas/`, containing the code for the code and each deltas, respectively.
 
-For both BankAccountSPL and MinePumpPL is also available the original source code in folder `/Original`.
+For both BankAccountSPL and MinePumpPL is also available the original source code in folder `Original/`.
 
 The files of the product-based approach for a subset (only method `timeShift` is considered) of `MinePumpPL` are available in its subfolder `variants-for-evaluation/`, with three subfolders `ABS/` (uncompiled ABS code), `Java/` that contains the code of the product variants, and `cost-and-comparison/` containing the results of the experiments.
 
-An additional folder `transformation_rules` in the main directory contains four provable transformation rules.
+An additional folder `transformation_rules/` in the main directory contains four provable transformation rules.
 
 ## How to reproduce the results
 We refer to the absolute path of this folder as `<PATH>/`.
