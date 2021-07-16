@@ -77,13 +77,13 @@ If AE is not used in a method there is exactly one contract to be proved for tha
 
 #### Start proof search
 Once the proof is selected it is possible to start the search by pressing the green button:
-| <img src=images/before-proof-search.png> |
+| <img src=images/before-proof-search.png width=500> |
 | :----------------------------------------------------------: |
 | *Before the proof search for `timeShift` for DeltaLowWaterSensor* |
 
 #### The result
 At the end of the proof search a windows with the result is displayed:
-| <img src=images/proved-contract.png width=300> |
+| <img src=images/proved-contract.png width=200> |
 | :--: |
 |*Result of the proof search for `timeShift` for DeltaLowWaterSensor*|
 
@@ -99,7 +99,7 @@ For the evaluation, after loading the proofs for a product variant `<n_feature-s
 
     ```$ java -jar key-2.7-exe.jar MinePumpPL/variants-for-evaluation/Java/7_low_high_alarm/load.key```
 2. Select the method `low_high_alarm_timeshift` as below
-    | <img src=images/select-product-evaluation.png> |
+    | <img src=images/select-product-evaluation.png width=500> |
     | :--: |
     |*Selecting version of method `timeShift` for product `low_high_alarm`*|
 
@@ -107,17 +107,17 @@ For the evaluation, after loading the proofs for a product variant `<n_feature-s
 ### Proving transformation rules
 
 1. Open KeY, then open REFINITY:
-    | ![Open REFINITY](images/open-refinity.png) |
+    | <img src=images/open-refinity.png width=500> |
     | :--: |
 
 
 2. Select the `.aer` file containing the transformation rule you want to verify:
-    | ![Select file](images/load-file.png) |
+    | <img src=images/load-file.png width=500> |
     | :--: |
 
 
 3. Start the verification:
-    | ![Start verification](images/start-verification-rules.png) |
+    | <img src=images/start-verification-rules.png width=500> |
     | :--: |
 
 
